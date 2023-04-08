@@ -1,0 +1,43 @@
+query getPages(
+  $filter: pages_filter
+  $limit: Int
+  $offset: Int
+  $page: Int
+  $search: String
+  $sort: [String]
+  $language: String
+) {
+  pages(
+    filter: $filter
+    limit: $limit
+    offset: $offset
+    page: $page
+    search: $search
+    sort: $sort
+  ) {
+    translations(filter: { languages_code: { _eq: $language } }) {
+      name
+      description
+    }
+    price
+    status
+    id
+  }
+}
+
+query getProducts(
+  $filter: String
+  $limit: Int
+  $offset: Int
+  $page: Int
+  $search: String
+  $sort: [String]
+) {
+  products {
+    translations(filter: { languages_code: { _eq: $language } }) {
+      name
+      description
+    }
+    price
+  }
+}
