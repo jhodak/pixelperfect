@@ -1,0 +1,40 @@
+.mantine-Carousel-controls {
+  top: -54px;
+}
+.mantine-Carousel-indicators {
+  bottom: -24px;
+}
+
+div.crossFade {
+  position: relative;
+  margin: 0 auto;
+  width: 200px;
+  height: 300px;
+  border-radius: 8px;
+}
+
+div.crossFade img {
+  position: absolute;
+  transition: opacity 1s ease-out;
+  border-radius: 8px;
+}
+
+div.crossFade img.top {
+  z-index: 1;
+}
+
+div.crossFade img.bottom {
+  z-index: 0;
+}
+
+body.light .product-slider-card {
+  border: 1px solid var(--mantine-color-gray-3);
+}
+
+body.light .mantine-Carousel-indicator {
+  background-color: var(--mantine-color-gray-5);
+}
+
+body.dark .product-slider-card {
+  border: 1px solid var(--mantine-color-gray-7);
+}

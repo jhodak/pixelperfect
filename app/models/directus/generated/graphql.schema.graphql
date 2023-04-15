@@ -1,3 +1,110 @@
+type Coupons {
+  Description: String
+  Name: String
+  Price: Float
+  date_created: Date
+  date_created_func: datetime_functions
+  date_updated: Date
+  date_updated_func: datetime_functions
+  id: ID!
+  sort: Int
+  status: String
+  translations(filter: Coupons_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons_translations]
+  translations_func: count_functions
+  user_created(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+  user_updated(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+}
+
+type Coupons_aggregated {
+  avg: Coupons_aggregated_fields
+  avgDistinct: Coupons_aggregated_fields
+  count: Coupons_aggregated_count
+  countAll: Int
+  countDistinct: Coupons_aggregated_count
+  group: JSON
+  max: Coupons_aggregated_fields
+  min: Coupons_aggregated_fields
+  sum: Coupons_aggregated_fields
+  sumDistinct: Coupons_aggregated_fields
+}
+
+type Coupons_aggregated_count {
+  Description: Int
+  Name: Int
+  Price: Int
+  date_created: Int
+  date_updated: Int
+  id: Int
+  sort: Int
+  status: Int
+  translations: Int
+  user_created: Int
+  user_updated: Int
+}
+
+type Coupons_aggregated_fields {
+  Price: Float
+  id: Float
+  sort: Float
+}
+
+input Coupons_filter {
+  Description: string_filter_operators
+  Name: string_filter_operators
+  Price: number_filter_operators
+  _and: [Coupons_filter]
+  _or: [Coupons_filter]
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  id: number_filter_operators
+  sort: number_filter_operators
+  status: string_filter_operators
+  translations: Coupons_translations_filter
+  translations_func: count_function_filter_operators
+  user_created: directus_users_filter
+  user_updated: directus_users_filter
+}
+
+type Coupons_translations {
+  Coupons_id(filter: Coupons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): Coupons
+  id: ID!
+  languages_code(filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): languages
+}
+
+type Coupons_translations_aggregated {
+  avg: Coupons_translations_aggregated_fields
+  avgDistinct: Coupons_translations_aggregated_fields
+  count: Coupons_translations_aggregated_count
+  countAll: Int
+  countDistinct: Coupons_translations_aggregated_count
+  group: JSON
+  max: Coupons_translations_aggregated_fields
+  min: Coupons_translations_aggregated_fields
+  sum: Coupons_translations_aggregated_fields
+  sumDistinct: Coupons_translations_aggregated_fields
+}
+
+type Coupons_translations_aggregated_count {
+  Coupons_id: Int
+  id: Int
+  languages_code: Int
+}
+
+type Coupons_translations_aggregated_fields {
+  Coupons_id: Float
+  id: Float
+}
+
+input Coupons_translations_filter {
+  Coupons_id: Coupons_filter
+  _and: [Coupons_translations_filter]
+  _or: [Coupons_translations_filter]
+  id: number_filter_operators
+  languages_code: languages_filter
+}
+
 """ISO8601 Date values"""
 scalar Date
 
@@ -16,29 +123,149 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 type Mutation {
+  create_Coupons_item(data: create_Coupons_input!): Coupons
+  create_Coupons_items(data: [create_Coupons_input!], filter: Coupons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons!]!
+  create_Coupons_translations_item(data: create_Coupons_translations_input!): Coupons_translations
+  create_Coupons_translations_items(data: [create_Coupons_translations_input!], filter: Coupons_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons_translations!]!
+  create_categories_item(data: create_categories_input!): categories
+  create_categories_items(data: [create_categories_input!], filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
+  create_categs_categs_item(data: create_categs_categs_input!): categs_categs
+  create_categs_categs_items(data: [create_categs_categs_input!], filter: categs_categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs_categs!]!
+  create_categs_item(data: create_categs_input!): categs
+  create_categs_items(data: [create_categs_input!], filter: categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs!]!
+  create_languages_item(data: create_languages_input!): languages
+  create_languages_items(data: [create_languages_input!], filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages!]!
   create_pages_item(data: create_pages_input!): pages
   create_pages_items(data: [create_pages_input!], filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages!]!
+  create_pages_translations_item(data: create_pages_translations_input!): pages_translations
+  create_pages_translations_items(data: [create_pages_translations_input!], filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations!]!
+  create_prods_categs_1_item(data: create_prods_categs_1_input!): prods_categs_1
+  create_prods_categs_1_items(data: [create_prods_categs_1_input!], filter: prods_categs_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs_1!]!
+  create_prods_categs_item(data: create_prods_categs_input!): prods_categs
+  create_prods_categs_items(data: [create_prods_categs_input!], filter: prods_categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs!]!
+  create_prods_item(data: create_prods_input!): prods
+  create_prods_items(data: [create_prods_input!], filter: prods_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods!]!
+  create_products_categories_item(data: create_products_categories_input!): products_categories
+  create_products_categories_items(data: [create_products_categories_input!], filter: products_categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories!]!
   create_products_item(data: create_products_input!): products
   create_products_items(data: [create_products_input!], filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
+  create_products_translations_item(data: create_products_translations_input!): products_translations
+  create_products_translations_items(data: [create_products_translations_input!], filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+  delete_Coupons_item(id: ID!): delete_one
+  delete_Coupons_items(ids: [ID]!): delete_many
+  delete_Coupons_translations_item(id: ID!): delete_one
+  delete_Coupons_translations_items(ids: [ID]!): delete_many
+  delete_categories_item(id: ID!): delete_one
+  delete_categories_items(ids: [ID]!): delete_many
+  delete_categs_categs_item(id: ID!): delete_one
+  delete_categs_categs_items(ids: [ID]!): delete_many
+  delete_categs_item(id: ID!): delete_one
+  delete_categs_items(ids: [ID]!): delete_many
+  delete_languages_item(id: ID!): delete_one
+  delete_languages_items(ids: [ID]!): delete_many
   delete_pages_item(id: ID!): delete_one
   delete_pages_items(ids: [ID]!): delete_many
+  delete_pages_translations_item(id: ID!): delete_one
+  delete_pages_translations_items(ids: [ID]!): delete_many
+  delete_prods_categs_1_item(id: ID!): delete_one
+  delete_prods_categs_1_items(ids: [ID]!): delete_many
+  delete_prods_categs_item(id: ID!): delete_one
+  delete_prods_categs_items(ids: [ID]!): delete_many
+  delete_prods_item(id: ID!): delete_one
+  delete_prods_items(ids: [ID]!): delete_many
+  delete_products_categories_item(id: ID!): delete_one
+  delete_products_categories_items(ids: [ID]!): delete_many
   delete_products_item(id: ID!): delete_one
   delete_products_items(ids: [ID]!): delete_many
+  delete_products_translations_item(id: ID!): delete_one
+  delete_products_translations_items(ids: [ID]!): delete_many
+  update_Coupons_batch(data: [update_Coupons_input!], filter: Coupons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons!]!
+  update_Coupons_item(data: update_Coupons_input!, id: ID!): Coupons
+  update_Coupons_items(data: update_Coupons_input!, filter: Coupons_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons!]!
+  update_Coupons_translations_batch(data: [update_Coupons_translations_input!], filter: Coupons_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons_translations!]!
+  update_Coupons_translations_item(data: update_Coupons_translations_input!, id: ID!): Coupons_translations
+  update_Coupons_translations_items(data: update_Coupons_translations_input!, filter: Coupons_translations_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons_translations!]!
+  update_categories_batch(data: [update_categories_input!], filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
+  update_categories_item(data: update_categories_input!, id: ID!): categories
+  update_categories_items(data: update_categories_input!, filter: categories_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
+  update_categs_batch(data: [update_categs_input!], filter: categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs!]!
+  update_categs_categs_batch(data: [update_categs_categs_input!], filter: categs_categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs_categs!]!
+  update_categs_categs_item(data: update_categs_categs_input!, id: ID!): categs_categs
+  update_categs_categs_items(data: update_categs_categs_input!, filter: categs_categs_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs_categs!]!
+  update_categs_item(data: update_categs_input!, id: ID!): categs
+  update_categs_items(data: update_categs_input!, filter: categs_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs!]!
+  update_languages_batch(data: [update_languages_input!], filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages!]!
+  update_languages_item(data: update_languages_input!, id: ID!): languages
+  update_languages_items(data: update_languages_input!, filter: languages_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages!]!
   update_pages_batch(data: [update_pages_input!], filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages!]!
   update_pages_item(data: update_pages_input!, id: ID!): pages
   update_pages_items(data: update_pages_input!, filter: pages_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages!]!
+  update_pages_translations_batch(data: [update_pages_translations_input!], filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations!]!
+  update_pages_translations_item(data: update_pages_translations_input!, id: ID!): pages_translations
+  update_pages_translations_items(data: update_pages_translations_input!, filter: pages_translations_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations!]!
+  update_prods_batch(data: [update_prods_input!], filter: prods_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods!]!
+  update_prods_categs_1_batch(data: [update_prods_categs_1_input!], filter: prods_categs_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs_1!]!
+  update_prods_categs_1_item(data: update_prods_categs_1_input!, id: ID!): prods_categs_1
+  update_prods_categs_1_items(data: update_prods_categs_1_input!, filter: prods_categs_1_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs_1!]!
+  update_prods_categs_batch(data: [update_prods_categs_input!], filter: prods_categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs!]!
+  update_prods_categs_item(data: update_prods_categs_input!, id: ID!): prods_categs
+  update_prods_categs_items(data: update_prods_categs_input!, filter: prods_categs_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs!]!
+  update_prods_item(data: update_prods_input!, id: ID!): prods
+  update_prods_items(data: update_prods_input!, filter: prods_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods!]!
   update_products_batch(data: [update_products_input!], filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
+  update_products_categories_batch(data: [update_products_categories_input!], filter: products_categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories!]!
+  update_products_categories_item(data: update_products_categories_input!, id: ID!): products_categories
+  update_products_categories_items(data: update_products_categories_input!, filter: products_categories_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories!]!
   update_products_item(data: update_products_input!, id: ID!): products
   update_products_items(data: update_products_input!, filter: products_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
+  update_products_translations_batch(data: [update_products_translations_input!], filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+  update_products_translations_item(data: update_products_translations_input!, id: ID!): products_translations
+  update_products_translations_items(data: update_products_translations_input!, filter: products_translations_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
 }
 
 type Query {
+  Coupons(filter: Coupons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons!]!
+  Coupons_aggregated(filter: Coupons_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons_aggregated!]!
+  Coupons_by_id(id: ID!): Coupons
+  Coupons_translations(filter: Coupons_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons_translations!]!
+  Coupons_translations_aggregated(filter: Coupons_translations_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Coupons_translations_aggregated!]!
+  Coupons_translations_by_id(id: ID!): Coupons_translations
+  categories(filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
+  categories_aggregated(filter: categories_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories_aggregated!]!
+  categories_by_id(id: ID!): categories
+  categs(filter: categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs!]!
+  categs_aggregated(filter: categs_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs_aggregated!]!
+  categs_by_id(id: ID!): categs
+  categs_categs(filter: categs_categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs_categs!]!
+  categs_categs_aggregated(filter: categs_categs_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categs_categs_aggregated!]!
+  categs_categs_by_id(id: ID!): categs_categs
+  languages(filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages!]!
+  languages_aggregated(filter: languages_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages_aggregated!]!
+  languages_by_id(id: ID!): languages
   pages(filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages!]!
   pages_aggregated(filter: pages_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_aggregated!]!
   pages_by_id(id: ID!): pages
+  pages_translations(filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations!]!
+  pages_translations_aggregated(filter: pages_translations_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations_aggregated!]!
+  pages_translations_by_id(id: ID!): pages_translations
+  prods(filter: prods_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods!]!
+  prods_aggregated(filter: prods_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_aggregated!]!
+  prods_by_id(id: ID!): prods
+  prods_categs(filter: prods_categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs!]!
+  prods_categs_1(filter: prods_categs_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs_1!]!
+  prods_categs_1_aggregated(filter: prods_categs_1_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs_1_aggregated!]!
+  prods_categs_1_by_id(id: ID!): prods_categs_1
+  prods_categs_aggregated(filter: prods_categs_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs_aggregated!]!
+  prods_categs_by_id(id: ID!): prods_categs
   products(filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
   products_aggregated(filter: products_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_aggregated!]!
   products_by_id(id: ID!): products
+  products_categories(filter: products_categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories!]!
+  products_categories_aggregated(filter: products_categories_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories_aggregated!]!
+  products_categories_by_id(id: ID!): products_categories
+  products_translations(filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+  products_translations_aggregated(filter: products_translations_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations_aggregated!]!
+  products_translations_by_id(id: ID!): products_translations
 }
 
 input boolean_filter_operators {
@@ -48,12 +275,178 @@ input boolean_filter_operators {
   _null: Boolean
 }
 
+type categories {
+  category: [String]
+  id: ID!
+  name: String
+  sort: Int
+  status: String
+}
+
+type categories_aggregated {
+  avg: categories_aggregated_fields
+  avgDistinct: categories_aggregated_fields
+  count: categories_aggregated_count
+  countAll: Int
+  countDistinct: categories_aggregated_count
+  group: JSON
+  max: categories_aggregated_fields
+  min: categories_aggregated_fields
+  sum: categories_aggregated_fields
+  sumDistinct: categories_aggregated_fields
+}
+
+type categories_aggregated_count {
+  category: Int
+  id: Int
+  name: Int
+  sort: Int
+  status: Int
+}
+
+type categories_aggregated_fields {
+  id: Float
+  sort: Float
+}
+
+input categories_filter {
+  _and: [categories_filter]
+  _or: [categories_filter]
+  category: string_filter_operators
+  id: number_filter_operators
+  name: string_filter_operators
+  sort: number_filter_operators
+  status: string_filter_operators
+}
+
+type categs {
+  id: ID!
+  newcats: JSON
+  newcats2: [String]
+  newcats_func: count_functions
+  status: String
+}
+
+type categs_aggregated {
+  avg: categs_aggregated_fields
+  avgDistinct: categs_aggregated_fields
+  count: categs_aggregated_count
+  countAll: Int
+  countDistinct: categs_aggregated_count
+  group: JSON
+  max: categs_aggregated_fields
+  min: categs_aggregated_fields
+  sum: categs_aggregated_fields
+  sumDistinct: categs_aggregated_fields
+}
+
+type categs_aggregated_count {
+  id: Int
+  newcats: Int
+  newcats2: Int
+  status: Int
+}
+
+type categs_aggregated_fields {
+  id: Float
+}
+
+type categs_categs {
+  categs_id(filter: categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): categs
+  id: ID!
+  related_categs_id(filter: categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): categs
+}
+
+type categs_categs_aggregated {
+  avg: categs_categs_aggregated_fields
+  avgDistinct: categs_categs_aggregated_fields
+  count: categs_categs_aggregated_count
+  countAll: Int
+  countDistinct: categs_categs_aggregated_count
+  group: JSON
+  max: categs_categs_aggregated_fields
+  min: categs_categs_aggregated_fields
+  sum: categs_categs_aggregated_fields
+  sumDistinct: categs_categs_aggregated_fields
+}
+
+type categs_categs_aggregated_count {
+  categs_id: Int
+  id: Int
+  related_categs_id: Int
+}
+
+type categs_categs_aggregated_fields {
+  categs_id: Float
+  id: Float
+  related_categs_id: Float
+}
+
+input categs_categs_filter {
+  _and: [categs_categs_filter]
+  _or: [categs_categs_filter]
+  categs_id: categs_filter
+  id: number_filter_operators
+  related_categs_id: categs_filter
+}
+
+input categs_filter {
+  _and: [categs_filter]
+  _or: [categs_filter]
+  id: number_filter_operators
+  newcats: string_filter_operators
+  newcats2: string_filter_operators
+  newcats_func: count_function_filter_operators
+  status: string_filter_operators
+}
+
 input count_function_filter_operators {
   count: number_filter_operators
 }
 
 type count_functions {
   count: Int
+}
+
+input create_Coupons_input {
+  Description: String
+  Name: String
+  Price: Float
+  date_created: Date
+  date_updated: Date
+  id: ID
+  sort: Int
+  status: String
+  translations: [create_Coupons_translations_input]
+  user_created: create_directus_users_input
+  user_updated: create_directus_users_input
+}
+
+input create_Coupons_translations_input {
+  Coupons_id: create_Coupons_input
+  id: ID
+  languages_code: create_languages_input
+}
+
+input create_categories_input {
+  category: [String]
+  id: ID
+  name: String
+  sort: Int
+  status: String
+}
+
+input create_categs_categs_input {
+  categs_id: create_categs_input
+  id: ID
+  related_categs_id: create_categs_input
+}
+
+input create_categs_input {
+  id: ID
+  newcats: JSON
+  newcats2: [String]
+  status: String
 }
 
 input create_directus_files_input {
@@ -123,31 +516,81 @@ input create_directus_users_input {
   token: Hash
 }
 
+input create_languages_input {
+  code: ID!
+  direction: String
+  name: String
+}
+
 input create_pages_input {
   date_created: Date
   date_updated: Date
-  description: String
   id: ID
-  name: String
-  price: String
+  price: Float
   sort: Int
   status: String
+  translations: [create_pages_translations_input]
   user_created: create_directus_users_input
   user_updated: create_directus_users_input
 }
 
-input create_products_input {
-  date_created: Date
-  date_updated: Date
+input create_pages_translations_input {
   description: String
   id: ID
-  image: String
+  languages_code: create_languages_input
   name: String
-  price: String
+  page_title: String
+  pages_id: create_pages_input
+}
+
+input create_prods_categs_1_input {
+  categs_id: create_categs_input
+  id: ID
+  prods_id: create_prods_input
+}
+
+input create_prods_categs_input {
+  categs_id: create_categs_input
+  id: ID
+  prods_id: create_prods_input
+}
+
+input create_prods_input {
+  categories: JSON
+  id: ID
+  name: String
+  product_categories: [create_prods_categs_1_input]
   sort: Int
   status: String
+}
+
+input create_products_categories_input {
+  categories_id: create_categories_input
+  id: ID
+  products_id: create_products_input
+}
+
+input create_products_input {
+  categories: [create_products_categories_input]
+  date_created: Date
+  date_updated: Date
+  id: ID
+  images: JSON
+  name: String!
+  price: String!
+  sort: Int
+  status: String
+  translations: [create_products_translations_input]
   user_created: create_directus_users_input
   user_updated: create_directus_users_input
+}
+
+input create_products_translations_input {
+  description: String!
+  id: ID
+  languages_code: create_languages_input
+  name: String!
+  products_id: create_products_input
 }
 
 input date_filter_operators {
@@ -360,6 +803,33 @@ input hash_filter_operators {
   _null: Boolean
 }
 
+type languages {
+  code: ID!
+  direction: String
+  name: String
+}
+
+type languages_aggregated {
+  count: languages_aggregated_count
+  countAll: Int
+  countDistinct: languages_aggregated_count
+  group: JSON
+}
+
+type languages_aggregated_count {
+  code: Int
+  direction: Int
+  name: Int
+}
+
+input languages_filter {
+  _and: [languages_filter]
+  _or: [languages_filter]
+  code: string_filter_operators
+  direction: string_filter_operators
+  name: string_filter_operators
+}
+
 input number_filter_operators {
   _between: [GraphQLStringOrFloat]
   _eq: GraphQLStringOrFloat
@@ -380,12 +850,12 @@ type pages {
   date_created_func: datetime_functions
   date_updated: Date
   date_updated_func: datetime_functions
-  description: String
   id: ID!
-  name: String
-  price: String
+  price: Float
   sort: Int
   status: String
+  translations(filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations]
+  translations_func: count_functions
   user_created(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
   user_updated(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
 }
@@ -406,18 +876,18 @@ type pages_aggregated {
 type pages_aggregated_count {
   date_created: Int
   date_updated: Int
-  description: Int
   id: Int
-  name: Int
   price: Int
   sort: Int
   status: Int
+  translations: Int
   user_created: Int
   user_updated: Int
 }
 
 type pages_aggregated_fields {
   id: Float
+  price: Float
   sort: Float
 }
 
@@ -428,28 +898,208 @@ input pages_filter {
   date_created_func: datetime_function_filter_operators
   date_updated: date_filter_operators
   date_updated_func: datetime_function_filter_operators
-  description: string_filter_operators
   id: number_filter_operators
-  name: string_filter_operators
-  price: string_filter_operators
+  price: number_filter_operators
   sort: number_filter_operators
   status: string_filter_operators
+  translations: pages_translations_filter
+  translations_func: count_function_filter_operators
   user_created: directus_users_filter
   user_updated: directus_users_filter
 }
 
+type pages_translations {
+  description: String
+  id: ID!
+  languages_code(filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): languages
+  name: String
+  page_title: String
+  pages_id(filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): pages
+}
+
+type pages_translations_aggregated {
+  avg: pages_translations_aggregated_fields
+  avgDistinct: pages_translations_aggregated_fields
+  count: pages_translations_aggregated_count
+  countAll: Int
+  countDistinct: pages_translations_aggregated_count
+  group: JSON
+  max: pages_translations_aggregated_fields
+  min: pages_translations_aggregated_fields
+  sum: pages_translations_aggregated_fields
+  sumDistinct: pages_translations_aggregated_fields
+}
+
+type pages_translations_aggregated_count {
+  description: Int
+  id: Int
+  languages_code: Int
+  name: Int
+  page_title: Int
+  pages_id: Int
+}
+
+type pages_translations_aggregated_fields {
+  id: Float
+  pages_id: Float
+}
+
+input pages_translations_filter {
+  _and: [pages_translations_filter]
+  _or: [pages_translations_filter]
+  description: string_filter_operators
+  id: number_filter_operators
+  languages_code: languages_filter
+  name: string_filter_operators
+  page_title: string_filter_operators
+  pages_id: pages_filter
+}
+
+type prods {
+  categories: JSON
+  categories_func: count_functions
+  id: ID!
+  name: String
+  product_categories(filter: prods_categs_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [prods_categs_1]
+  product_categories_func: count_functions
+  sort: Int
+  status: String
+}
+
+type prods_aggregated {
+  avg: prods_aggregated_fields
+  avgDistinct: prods_aggregated_fields
+  count: prods_aggregated_count
+  countAll: Int
+  countDistinct: prods_aggregated_count
+  group: JSON
+  max: prods_aggregated_fields
+  min: prods_aggregated_fields
+  sum: prods_aggregated_fields
+  sumDistinct: prods_aggregated_fields
+}
+
+type prods_aggregated_count {
+  categories: Int
+  id: Int
+  name: Int
+  product_categories: Int
+  sort: Int
+  status: Int
+}
+
+type prods_aggregated_fields {
+  id: Float
+  sort: Float
+}
+
+type prods_categs {
+  categs_id(filter: categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): categs
+  id: ID!
+  prods_id(filter: prods_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): prods
+}
+
+type prods_categs_1 {
+  categs_id(filter: categs_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): categs
+  id: ID!
+  prods_id(filter: prods_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): prods
+}
+
+type prods_categs_1_aggregated {
+  avg: prods_categs_1_aggregated_fields
+  avgDistinct: prods_categs_1_aggregated_fields
+  count: prods_categs_1_aggregated_count
+  countAll: Int
+  countDistinct: prods_categs_1_aggregated_count
+  group: JSON
+  max: prods_categs_1_aggregated_fields
+  min: prods_categs_1_aggregated_fields
+  sum: prods_categs_1_aggregated_fields
+  sumDistinct: prods_categs_1_aggregated_fields
+}
+
+type prods_categs_1_aggregated_count {
+  categs_id: Int
+  id: Int
+  prods_id: Int
+}
+
+type prods_categs_1_aggregated_fields {
+  categs_id: Float
+  id: Float
+  prods_id: Float
+}
+
+input prods_categs_1_filter {
+  _and: [prods_categs_1_filter]
+  _or: [prods_categs_1_filter]
+  categs_id: categs_filter
+  id: number_filter_operators
+  prods_id: prods_filter
+}
+
+type prods_categs_aggregated {
+  avg: prods_categs_aggregated_fields
+  avgDistinct: prods_categs_aggregated_fields
+  count: prods_categs_aggregated_count
+  countAll: Int
+  countDistinct: prods_categs_aggregated_count
+  group: JSON
+  max: prods_categs_aggregated_fields
+  min: prods_categs_aggregated_fields
+  sum: prods_categs_aggregated_fields
+  sumDistinct: prods_categs_aggregated_fields
+}
+
+type prods_categs_aggregated_count {
+  categs_id: Int
+  id: Int
+  prods_id: Int
+}
+
+type prods_categs_aggregated_fields {
+  categs_id: Float
+  id: Float
+  prods_id: Float
+}
+
+input prods_categs_filter {
+  _and: [prods_categs_filter]
+  _or: [prods_categs_filter]
+  categs_id: categs_filter
+  id: number_filter_operators
+  prods_id: prods_filter
+}
+
+input prods_filter {
+  _and: [prods_filter]
+  _or: [prods_filter]
+  categories: string_filter_operators
+  categories_func: count_function_filter_operators
+  id: number_filter_operators
+  name: string_filter_operators
+  product_categories: prods_categs_1_filter
+  product_categories_func: count_function_filter_operators
+  sort: number_filter_operators
+  status: string_filter_operators
+}
+
 type products {
+  categories(filter: products_categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories]
+  categories_func: count_functions
   date_created: Date
   date_created_func: datetime_functions
   date_updated: Date
   date_updated_func: datetime_functions
-  description: String
   id: ID!
-  image: String
-  name: String
-  price: String
+  images: JSON
+  images_func: count_functions
+  name: String!
+  price: String!
   sort: Int
   status: String
+  translations(filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations]
+  translations_func: count_functions
   user_created(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
   user_updated(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
 }
@@ -468,15 +1118,16 @@ type products_aggregated {
 }
 
 type products_aggregated_count {
+  categories: Int
   date_created: Int
   date_updated: Int
-  description: Int
   id: Int
-  image: Int
+  images: Int
   name: Int
   price: Int
   sort: Int
   status: Int
+  translations: Int
   user_created: Int
   user_updated: Int
 }
@@ -486,22 +1137,109 @@ type products_aggregated_fields {
   sort: Float
 }
 
+type products_categories {
+  categories_id(filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): categories
+  id: ID!
+  products_id(filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): products
+}
+
+type products_categories_aggregated {
+  avg: products_categories_aggregated_fields
+  avgDistinct: products_categories_aggregated_fields
+  count: products_categories_aggregated_count
+  countAll: Int
+  countDistinct: products_categories_aggregated_count
+  group: JSON
+  max: products_categories_aggregated_fields
+  min: products_categories_aggregated_fields
+  sum: products_categories_aggregated_fields
+  sumDistinct: products_categories_aggregated_fields
+}
+
+type products_categories_aggregated_count {
+  categories_id: Int
+  id: Int
+  products_id: Int
+}
+
+type products_categories_aggregated_fields {
+  categories_id: Float
+  id: Float
+  products_id: Float
+}
+
+input products_categories_filter {
+  _and: [products_categories_filter]
+  _or: [products_categories_filter]
+  categories_id: categories_filter
+  id: number_filter_operators
+  products_id: products_filter
+}
+
 input products_filter {
   _and: [products_filter]
   _or: [products_filter]
+  categories: products_categories_filter
+  categories_func: count_function_filter_operators
   date_created: date_filter_operators
   date_created_func: datetime_function_filter_operators
   date_updated: date_filter_operators
   date_updated_func: datetime_function_filter_operators
-  description: string_filter_operators
   id: number_filter_operators
-  image: string_filter_operators
+  images: string_filter_operators
+  images_func: count_function_filter_operators
   name: string_filter_operators
   price: string_filter_operators
   sort: number_filter_operators
   status: string_filter_operators
+  translations: products_translations_filter
+  translations_func: count_function_filter_operators
   user_created: directus_users_filter
   user_updated: directus_users_filter
+}
+
+type products_translations {
+  description: String!
+  id: ID!
+  languages_code(filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): languages
+  name: String!
+  products_id(filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): products
+}
+
+type products_translations_aggregated {
+  avg: products_translations_aggregated_fields
+  avgDistinct: products_translations_aggregated_fields
+  count: products_translations_aggregated_count
+  countAll: Int
+  countDistinct: products_translations_aggregated_count
+  group: JSON
+  max: products_translations_aggregated_fields
+  min: products_translations_aggregated_fields
+  sum: products_translations_aggregated_fields
+  sumDistinct: products_translations_aggregated_fields
+}
+
+type products_translations_aggregated_count {
+  description: Int
+  id: Int
+  languages_code: Int
+  name: Int
+  products_id: Int
+}
+
+type products_translations_aggregated_fields {
+  id: Float
+  products_id: Float
+}
+
+input products_translations_filter {
+  _and: [products_translations_filter]
+  _or: [products_translations_filter]
+  description: string_filter_operators
+  id: number_filter_operators
+  languages_code: languages_filter
+  name: string_filter_operators
+  products_id: products_filter
 }
 
 input string_filter_operators {
@@ -520,6 +1258,47 @@ input string_filter_operators {
   _nstarts_with: String
   _null: Boolean
   _starts_with: String
+}
+
+input update_Coupons_input {
+  Description: String
+  Name: String
+  Price: Float
+  date_created: Date
+  date_updated: Date
+  id: ID
+  sort: Int
+  status: String
+  translations: [update_Coupons_translations_input]
+  user_created: update_directus_users_input
+  user_updated: update_directus_users_input
+}
+
+input update_Coupons_translations_input {
+  Coupons_id: update_Coupons_input
+  id: ID
+  languages_code: update_languages_input
+}
+
+input update_categories_input {
+  category: [String]
+  id: ID
+  name: String
+  sort: Int
+  status: String
+}
+
+input update_categs_categs_input {
+  categs_id: update_categs_input
+  id: ID
+  related_categs_id: update_categs_input
+}
+
+input update_categs_input {
+  id: ID
+  newcats: JSON
+  newcats2: [String]
+  status: String
 }
 
 input update_directus_files_input {
@@ -589,29 +1368,79 @@ input update_directus_users_input {
   token: Hash
 }
 
+input update_languages_input {
+  code: ID
+  direction: String
+  name: String
+}
+
 input update_pages_input {
   date_created: Date
   date_updated: Date
-  description: String
   id: ID
-  name: String
-  price: String
+  price: Float
   sort: Int
   status: String
+  translations: [update_pages_translations_input]
   user_created: update_directus_users_input
   user_updated: update_directus_users_input
 }
 
-input update_products_input {
-  date_created: Date
-  date_updated: Date
+input update_pages_translations_input {
   description: String
   id: ID
-  image: String
+  languages_code: update_languages_input
+  name: String
+  page_title: String
+  pages_id: update_pages_input
+}
+
+input update_prods_categs_1_input {
+  categs_id: update_categs_input
+  id: ID
+  prods_id: update_prods_input
+}
+
+input update_prods_categs_input {
+  categs_id: update_categs_input
+  id: ID
+  prods_id: update_prods_input
+}
+
+input update_prods_input {
+  categories: JSON
+  id: ID
+  name: String
+  product_categories: [update_prods_categs_1_input]
+  sort: Int
+  status: String
+}
+
+input update_products_categories_input {
+  categories_id: update_categories_input
+  id: ID
+  products_id: update_products_input
+}
+
+input update_products_input {
+  categories: [update_products_categories_input]
+  date_created: Date
+  date_updated: Date
+  id: ID
+  images: JSON
   name: String
   price: String
   sort: Int
   status: String
+  translations: [update_products_translations_input]
   user_created: update_directus_users_input
   user_updated: update_directus_users_input
+}
+
+input update_products_translations_input {
+  description: String
+  id: ID
+  languages_code: update_languages_input
+  name: String
+  products_id: update_products_input
 }

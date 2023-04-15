@@ -18,11 +18,13 @@ specifiers:
   '@remix-run/node': ^1.15.0
   '@remix-run/react': ^1.15.0
   '@remix-run/serve': ^1.15.0
+  '@tabler/icons-react': ^2.15.0
   '@types/react': ^18.0.32
   '@types/react-dom': ^18.0.8
   bson-ext: ^4.0.3
   clsx: ^1.2.1
   dotenv: ^16.0.3
+  embla-carousel-autoplay: ^7.1.0
   embla-carousel-react: ^7.1.0
   eslint: ^8.27.0
   eslint-config-prettier: ^8.8.0
@@ -32,11 +34,12 @@ specifiers:
   eslint-plugin-react: ^7.32.2
   eslint-plugin-react-hooks: ^4.6.0
   graphql: ^16.6.0
-  graphql-request: ^5.2.0
+  graphql-request: 5.1.0
   graphql-tag: ^2.12.6
   husky: ^8.0.3
   isbot: ^3.6.5
   jest-axe: ^7.0.1
+  node-cache: ^5.1.2
   npm-run-all: ^4.1.5
   prettier: ^2.8.7
   react: ^18.2.0
@@ -60,13 +63,16 @@ dependencies:
   '@remix-run/node': 1.15.0
   '@remix-run/react': 1.15.0_biqbaboplfbrettd7655fr4n2y
   '@remix-run/serve': 1.15.0
+  '@tabler/icons-react': 2.15.0_react@18.2.0
   bson-ext: 4.0.3
   clsx: 1.2.1
+  embla-carousel-autoplay: 7.1.0_embla-carousel@7.1.0
   embla-carousel-react: 7.1.0_react@18.2.0
   graphql: 16.6.0
-  graphql-request: 5.2.0_graphql@16.6.0
+  graphql-request: 5.1.0_graphql@16.6.0
   graphql-tag: 2.12.6_graphql@16.6.0
   isbot: 3.6.8
+  node-cache: 5.1.2
   prettier: 2.8.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -94,7 +100,7 @@ devDependencies:
   npm-run-all: 4.1.5
   ts-node: 10.9.1_o6avl3oodj6mwqsx3rm2wfkgv4
   typescript: 4.9.5
-  typescript-graphql-request: 4.4.6_zevvb7nvi4hzweqh5hchlib5c4
+  typescript-graphql-request: 4.4.6_f45c35xnr66et7kv43kezet7ie
 
 packages:
 
@@ -3310,6 +3316,20 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
+  /@tabler/icons-react/2.15.0_react@18.2.0:
+    resolution: {integrity: sha512-yE+0kskRLANxB3ulkJ4UsouvMsNA+C5y58JjWgdHX8T4pLK/9FOtFPdGmZW2Z5SodC6XZCXH/uw0PqAy1I3/JA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tabler/icons': 2.15.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /@tabler/icons/2.15.0:
+    resolution: {integrity: sha512-6fwWrsLOqmeoDPii4O1/tG1lsaNoPigUEx8UrOgTLJ81HazbAy5rfypp7FN9/PGsal4VDU+hevOkaGkE6algTQ==}
+    dev: false
+
   /@testing-library/dom/8.20.0:
     resolution: {integrity: sha512-d9ULIT+a4EXLX3UU8FBjauG9NnsZHkHztXoIcTsOKoOw030fyjheN9svkTULjJxtYag9DZz5Jz5qkWZDPxTFwA==}
     engines: {node: '>=12'}
@@ -4463,6 +4483,11 @@ packages:
     engines: {node: '>=0.8'}
     dev: true
 
+  /clone/2.1.2:
+    resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
+    engines: {node: '>=0.8'}
+    dev: false
+
   /clsx/1.1.1:
     resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
     engines: {node: '>=6'}
@@ -4992,6 +5017,14 @@ packages:
 
   /electron-to-chromium/1.4.348:
     resolution: {integrity: sha512-gM7TdwuG3amns/1rlgxMbeeyNoBFPa+4Uu0c7FeROWh4qWmvSOnvcslKmWy51ggLKZ2n/F/4i2HJ+PVNxH9uCQ==}
+
+  /embla-carousel-autoplay/7.1.0_embla-carousel@7.1.0:
+    resolution: {integrity: sha512-nYfgSGn3ek44OzwO0t/Ptuxq4PNPD5l7Y9X7JjLYI/DN1uGjqxz9L73YYqR6YCRDnTYJ88s9fep48dzBnSG4vQ==}
+    peerDependencies:
+      embla-carousel: 7.1.0
+    dependencies:
+      embla-carousel: 7.1.0
+    dev: false
 
   /embla-carousel-react/7.1.0_react@18.2.0:
     resolution: {integrity: sha512-tbYRPRZSDNd2QLNqYDcArAakGIxtUbhS7tkP0dGXktXHGgcX+3ji3VrOUTOftBiujZrMV8kRxtrRUe/1soloIQ==}
@@ -6251,6 +6284,19 @@ packages:
       - utf-8-validate
     dev: true
 
+  /graphql-request/5.1.0_graphql@16.6.0:
+    resolution: {integrity: sha512-0OeRVYigVwIiXhNmqnPDt+JhMzsjinxHE7TVy3Lm6jUzav0guVcL0lfSbi6jVTRAxcbwgyr6yrZioSHxf9gHzw==}
+    peerDependencies:
+      graphql: 14 - 16
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0_graphql@16.6.0
+      cross-fetch: 3.1.5
+      extract-files: 9.0.0
+      form-data: 3.0.1
+      graphql: 16.6.0
+    transitivePeerDependencies:
+      - encoding
+
   /graphql-request/5.2.0_graphql@16.6.0:
     resolution: {integrity: sha512-pLhKIvnMyBERL0dtFI3medKqWOz/RhHdcgbZ+hMMIb32mEPa5MJSzS4AuXxfI4sRAu6JVVk5tvXuGfCWl9JYWQ==}
     peerDependencies:
@@ -6263,6 +6309,7 @@ packages:
       graphql: 16.6.0
     transitivePeerDependencies:
       - encoding
+    dev: true
 
   /graphql-tag/2.12.6_graphql@16.6.0:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
@@ -7960,6 +8007,13 @@ packages:
   /node-addon-api/3.2.1:
     resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
     dev: true
+
+  /node-cache/5.1.2:
+    resolution: {integrity: sha512-t1QzWwnk4sjLWaQAS8CHgOJ+RAfmHpxFWmc36IWTiWHQfs0w5JDMBS1b1ZxQteo0vVVuWJvIUKHDkkeK7vIGCg==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      clone: 2.1.2
+    dev: false
 
   /node-fetch/2.6.7:
     resolution: {integrity: sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==}
@@ -9974,7 +10028,7 @@ packages:
       is-typed-array: 1.1.10
     dev: true
 
-  /typescript-graphql-request/4.4.6_zevvb7nvi4hzweqh5hchlib5c4:
+  /typescript-graphql-request/4.4.6_f45c35xnr66et7kv43kezet7ie:
     resolution: {integrity: sha512-7Rb3FEly+IM5BFzVDwHC5EExy+MQumJLYdts9yqtswgqbiAuCILokcp8gnq5sDremayZ4glxubc+UP1F1GT9+w==}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -9985,7 +10039,7 @@ packages:
       '@graphql-codegen/visitor-plugin-common': 2.7.4_graphql@16.6.0
       auto-bind: 4.0.0
       graphql: 16.6.0
-      graphql-request: 5.2.0_graphql@16.6.0
+      graphql-request: 5.1.0_graphql@16.6.0
       graphql-tag: 2.12.6_graphql@16.6.0
       tslib: 2.3.1
     transitivePeerDependencies:

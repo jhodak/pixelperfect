@@ -3,8 +3,6 @@ import { useLoaderData } from "@remix-run/react"
 import { useMemo } from "react"
 import { initDirectusCms } from "~/models/directus/directus.server"
 import { GetPagesQuery } from "~/models/directus/sdk"
-// import { groupBy } from "~/utils/utils"
-// import FaqsView, { links as FaqsViewLinks } from "~/views/faqs/faqsView"
 
 export const links: LinksFunction = () => {
   return [
@@ -13,34 +11,38 @@ export const links: LinksFunction = () => {
 }
 
 type LoaderData = {
-  pages: GetPagesQuery
+  pageData: GetPagesQuery
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  console.log("inside loader")
   const directus = initDirectusCms()
-  console.log(directus)
   const pageData = await directus.getPages({
-    filter: { status: { _eq: "Published" } },
+    filter: {
+      status: { _eq: "published" },
+      translations: { name: { _eq: "page 1" } },
+    },
     sort: ["id"],
+    language: "en-US",
   })
-
   console.log(pageData)
-
   return json<LoaderData>({
-    pages: pageData,
+    pageData: pageData,
   })
 }
 
 export default function Home() {
   const data = useLoaderData<LoaderData>()
-  console.log("loader data", data)
+  // const { price, translations, status } = data?.pageData?.pages[0]
 
-  // const pageData = useMemo(() => {
-  //   return pages
-  // }, [pages])
+  const pageData = useMemo(() => {
+    if (data?.pageData?.pages[0]) {
+      const memoData = data.pageData.pages[0]
+      return memoData
+    }
+    return null
+  }, [data])
 
-  return <div>{"Home Page"}</div>
+  return <div>{"Here is the Home Page"}</div>
   // return <HomeView cmsData={pageData} />
 }
 
