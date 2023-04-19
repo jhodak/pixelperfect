@@ -36,7 +36,9 @@
     "node-cache": "^5.1.2",
     "prettier": "^2.8.7",
     "react": "^18.2.0",
+    "react-crossfade-simple": "^1.0.7",
     "react-dom": "^18.2.0",
+    "react-tiny-crossfade": "^2.2.0",
     "schema-ast": "^2.0.0",
     "yargs": "^17.7.1"
   },

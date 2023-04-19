@@ -1,4 +1,9 @@
-import type { LinksFunction, V2_MetaFunction } from "@remix-run/node"
+import {
+  LinksFunction,
+  LoaderFunction,
+  V2_MetaFunction,
+  json,
+} from "@remix-run/node"
 import {
   Links,
   LiveReload,
@@ -6,6 +11,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react"
 import {
   ColorScheme,
@@ -21,6 +27,11 @@ import FooterLayout, {
 } from "./components/molecules/footer"
 import styles from "~/styles/rootStyles.css"
 import HeaderMenu, { links as HeaderLinks } from "./components/molecules/header"
+import { CartContextProvider } from "./context/cart"
+import { GetProductsQuery } from "./models/directus/sdk"
+import { initDirectusCms } from "./models/directus/directus.server"
+import { cache } from "./utils/db.server"
+import { useMemo } from "react"
 
 enum keys {
   "charset",
@@ -79,15 +90,53 @@ const navLinks = [
   { link: "/contact", label: "Contact Us" },
 ]
 
+type LoaderData = {
+  products: GetProductsQuery
+}
+
+const productDefault = { products: [] }
+
+export const loader: LoaderFunction = async ({ request }) => {
+  let products: GetProductsQuery
+  const directus = initDirectusCms()
+
+  if (cache.has("all-products-data")) {
+    products = (await cache.get("all-products-data")) ?? productDefault
+  } else {
+    products =
+      (await directus.getProducts({
+        filter: {
+          status: { _eq: "published" },
+        },
+        language: "en-US",
+      })) ?? productDefault
+    if (products !== undefined) {
+      cache.set("all-products-data", products, 60 * 5) // set cache for 1 minute
+    }
+  }
+
+  return json<LoaderData>({
+    products,
+  })
+}
+
 export default function App() {
+  const { products } = useLoaderData<LoaderData>()
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "color-scheme",
     defaultValue: "dark",
   })
-
   const toggleColorScheme = (value?: ColorScheme) => {
     setColorScheme(colorScheme === "dark" ? "light" : "dark")
   }
+
+  const memoProductsData = useMemo(() => {
+    if (products) {
+      const memoProducts = products
+      return memoProducts
+    }
+    return productDefault
+  }, [products])
 
   return (
     <ColorSchemeProvider
@@ -100,23 +149,29 @@ export default function App() {
         withNormalizeCSS
         withCSSVariables
       >
-        <html lang="en">
-          <head>
-            <StylesPlaceholder />
-            <Meta />
-            <Links />
-          </head>
-          <body className={colorScheme}>
-            <HeaderMenu links={navLinks} button={false} />
-            <main>
-              <Outlet />
-            </main>
-            <ScrollRestoration />
-            <Scripts />
-            <LiveReload />
-            <FooterLayout />
-          </body>
-        </html>
+        <CartContextProvider>
+          <html lang="en">
+            <head>
+              <StylesPlaceholder />
+              <Meta />
+              <Links />
+            </head>
+            <body className={colorScheme}>
+              <HeaderMenu
+                links={navLinks}
+                button={false}
+                allProducts={memoProductsData}
+              />
+              <main>
+                <Outlet />
+              </main>
+              <ScrollRestoration />
+              <Scripts />
+              <LiveReload />
+              <FooterLayout />
+            </body>
+          </html>
+        </CartContextProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   )

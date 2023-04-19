@@ -1,14 +1,13 @@
-import { Button, Card, Title, Text, Grid, Container } from "@mantine/core"
+import { Container } from "@mantine/core"
 import { json, LinksFunction, LoaderFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
-import { memo, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import ProductGrid, {
   links as ProductGridLinks,
 } from "~/components/molecules/productgrid"
 import { initDirectusCms } from "~/models/directus/directus.server"
 import { GetPagesQuery, GetProductsQuery } from "~/models/directus/sdk"
 import { cache } from "~/utils/db.server"
-import { formatGoogleDriveURL } from "~/utils/utils"
 
 export const links: LinksFunction = () => {
   return [...ProductGridLinks()]
@@ -56,8 +55,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Products() {
   const { products, pageInfo } = useLoaderData<LoaderData>()
-  const [hover, setHover] = useState<number>(-1)
-  // const { price, translations, status } = data?.pageData?.pages[0]
 
   const pageData = useMemo(() => {
     if (pageInfo?.pages[0]) {
@@ -79,7 +76,10 @@ export default function Products() {
     <div>
       <Container size={1280}>
         {memoProductsData?.products && (
-          <ProductGrid productsData={memoProductsData} title="products" />
+          <ProductGrid
+            productsData={memoProductsData}
+            title="Digital Art Products"
+          />
         )}
       </Container>
     </div>

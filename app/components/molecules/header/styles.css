@@ -39,6 +39,12 @@ body.dark .header .link:hover {
   margin-right: 8px;
 }
 
+.cartDrawer .mantine-Drawer-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 @media only screen and (max-width: 768px) {
   .header {
     margin-bottom: 2rem;

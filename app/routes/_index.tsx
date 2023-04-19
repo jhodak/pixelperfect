@@ -1,7 +1,7 @@
 import { Container, Title, useMantineColorScheme } from "@mantine/core"
 import { json, LoaderFunction, V2_MetaFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
-import { useMemo } from "react"
+import { useContext, useMemo } from "react"
 import { initDirectusCms } from "~/models/directus/directus.server"
 import {
   GetPagesQuery,
@@ -45,7 +45,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       (await directus.getPages({
         filter: {
           status: { _eq: "published" },
-          translations: { name: { _eq: "page 1" } },
+          translations: { name: { _eq: "Home" } },
         },
         sort: ["id"],
         language: "en-US",
@@ -129,20 +129,17 @@ export default function Index() {
       return memoFlowers
     }
   }, [flowers])
+
   return (
     <>
       <div
+        className={"index-banner"}
         style={{
-          backgroundImage: "url(/siteimages/unicorn-banner2.png)",
-          height: "256px",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          overflow: "hidden",
           marginTop: isTablet ? "-2rem" : "-6rem",
         }}
       >
         <Title
+          className="tangerine"
           order={1}
           align="center"
           pt={"24px"}

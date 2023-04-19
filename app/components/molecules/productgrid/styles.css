@@ -1,11 +1,19 @@
-.mantine-Carousel-controls {
+.product-grid .mantine-Carousel-controls {
   top: -54px;
 }
-.mantine-Carousel-indicators {
+.product-grid .mantine-Carousel-indicators {
   bottom: -24px;
 }
 
-div.crossFade {
+.product-grid .addToCart,
+.product-grid .product-link {
+  text-decoration: none;
+}
+.product-grid .product-link {
+  color: inherit;
+}
+
+.product-grid div.crossFade {
   position: relative;
   margin: 0 auto;
   width: 200px;
@@ -13,28 +21,32 @@ div.crossFade {
   border-radius: 8px;
 }
 
-div.crossFade img {
+.product-grid div.crossFade img {
   position: absolute;
   transition: opacity 1s ease-out;
   border-radius: 8px;
 }
 
-div.crossFade img.top {
+.product-grid div.crossFade img.top {
   z-index: 1;
+  width: 200px;
+  height: 300px;
 }
 
-div.crossFade img.bottom {
+.product-grid div.crossFade img.bottom {
   z-index: 0;
+  width: 200px;
+  height: 300px;
 }
 
-body.light .product-slider-card {
+body.light .product-grid .product-slider-card {
   border: 1px solid var(--mantine-color-gray-3);
 }
 
-body.light .mantine-Carousel-indicator {
+body.light .product-grid .mantine-Carousel-indicator {
   background-color: var(--mantine-color-gray-5);
 }
 
-body.dark .product-slider-card {
+body.dark .product-grid .product-slider-card {
   border: 1px solid var(--mantine-color-gray-7);
 }
