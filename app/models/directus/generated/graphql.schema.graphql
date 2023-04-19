@@ -1,0 +1,951 @@
+"""ISO8601 Date values"""
+scalar Date
+
+"""BigInt value"""
+scalar GraphQLBigInt
+
+"""A Float or a String"""
+scalar GraphQLStringOrFloat
+
+"""Hashed string values"""
+scalar Hash
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Mutation {
+  create_categories_item(data: create_categories_input!): categories
+  create_categories_items(data: [create_categories_input!], filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
+  create_languages_item(data: create_languages_input!): languages
+  create_languages_items(data: [create_languages_input!], filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages!]!
+  create_pages_item(data: create_pages_input!): pages
+  create_pages_items(data: [create_pages_input!], filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages!]!
+  create_pages_translations_item(data: create_pages_translations_input!): pages_translations
+  create_pages_translations_items(data: [create_pages_translations_input!], filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations!]!
+  create_products_categories_item(data: create_products_categories_input!): products_categories
+  create_products_categories_items(data: [create_products_categories_input!], filter: products_categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories!]!
+  create_products_item(data: create_products_input!): products
+  create_products_items(data: [create_products_input!], filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
+  create_products_translations_item(data: create_products_translations_input!): products_translations
+  create_products_translations_items(data: [create_products_translations_input!], filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+  delete_categories_item(id: ID!): delete_one
+  delete_categories_items(ids: [ID]!): delete_many
+  delete_languages_item(id: ID!): delete_one
+  delete_languages_items(ids: [ID]!): delete_many
+  delete_pages_item(id: ID!): delete_one
+  delete_pages_items(ids: [ID]!): delete_many
+  delete_pages_translations_item(id: ID!): delete_one
+  delete_pages_translations_items(ids: [ID]!): delete_many
+  delete_products_categories_item(id: ID!): delete_one
+  delete_products_categories_items(ids: [ID]!): delete_many
+  delete_products_item(id: ID!): delete_one
+  delete_products_items(ids: [ID]!): delete_many
+  delete_products_translations_item(id: ID!): delete_one
+  delete_products_translations_items(ids: [ID]!): delete_many
+  update_categories_batch(data: [update_categories_input!], filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
+  update_categories_item(data: update_categories_input!, id: ID!): categories
+  update_categories_items(data: update_categories_input!, filter: categories_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
+  update_languages_batch(data: [update_languages_input!], filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages!]!
+  update_languages_item(data: update_languages_input!, id: ID!): languages
+  update_languages_items(data: update_languages_input!, filter: languages_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages!]!
+  update_pages_batch(data: [update_pages_input!], filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages!]!
+  update_pages_item(data: update_pages_input!, id: ID!): pages
+  update_pages_items(data: update_pages_input!, filter: pages_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages!]!
+  update_pages_translations_batch(data: [update_pages_translations_input!], filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations!]!
+  update_pages_translations_item(data: update_pages_translations_input!, id: ID!): pages_translations
+  update_pages_translations_items(data: update_pages_translations_input!, filter: pages_translations_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations!]!
+  update_products_batch(data: [update_products_input!], filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
+  update_products_categories_batch(data: [update_products_categories_input!], filter: products_categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories!]!
+  update_products_categories_item(data: update_products_categories_input!, id: ID!): products_categories
+  update_products_categories_items(data: update_products_categories_input!, filter: products_categories_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories!]!
+  update_products_item(data: update_products_input!, id: ID!): products
+  update_products_items(data: update_products_input!, filter: products_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
+  update_products_translations_batch(data: [update_products_translations_input!], filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+  update_products_translations_item(data: update_products_translations_input!, id: ID!): products_translations
+  update_products_translations_items(data: update_products_translations_input!, filter: products_translations_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+}
+
+type Query {
+  categories(filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
+  categories_aggregated(filter: categories_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories_aggregated!]!
+  categories_by_id(id: ID!): categories
+  languages(filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages!]!
+  languages_aggregated(filter: languages_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [languages_aggregated!]!
+  languages_by_id(id: ID!): languages
+  pages(filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages!]!
+  pages_aggregated(filter: pages_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_aggregated!]!
+  pages_by_id(id: ID!): pages
+  pages_translations(filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations!]!
+  pages_translations_aggregated(filter: pages_translations_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations_aggregated!]!
+  pages_translations_by_id(id: ID!): pages_translations
+  products(filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
+  products_aggregated(filter: products_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_aggregated!]!
+  products_by_id(id: ID!): products
+  products_categories(filter: products_categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories!]!
+  products_categories_aggregated(filter: products_categories_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories_aggregated!]!
+  products_categories_by_id(id: ID!): products_categories
+  products_translations(filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+  products_translations_aggregated(filter: products_translations_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations_aggregated!]!
+  products_translations_by_id(id: ID!): products_translations
+}
+
+input boolean_filter_operators {
+  _eq: Boolean
+  _neq: Boolean
+  _nnull: Boolean
+  _null: Boolean
+}
+
+type categories {
+  category: [String]
+  id: ID!
+  name: String
+  sort: Int
+  status: String
+}
+
+type categories_aggregated {
+  avg: categories_aggregated_fields
+  avgDistinct: categories_aggregated_fields
+  count: categories_aggregated_count
+  countAll: Int
+  countDistinct: categories_aggregated_count
+  group: JSON
+  max: categories_aggregated_fields
+  min: categories_aggregated_fields
+  sum: categories_aggregated_fields
+  sumDistinct: categories_aggregated_fields
+}
+
+type categories_aggregated_count {
+  category: Int
+  id: Int
+  name: Int
+  sort: Int
+  status: Int
+}
+
+type categories_aggregated_fields {
+  id: Float
+  sort: Float
+}
+
+input categories_filter {
+  _and: [categories_filter]
+  _or: [categories_filter]
+  category: string_filter_operators
+  id: number_filter_operators
+  name: string_filter_operators
+  sort: number_filter_operators
+  status: string_filter_operators
+}
+
+input count_function_filter_operators {
+  count: number_filter_operators
+}
+
+type count_functions {
+  count: Int
+}
+
+input create_categories_input {
+  category: [String]
+  id: ID
+  name: String
+  sort: Int
+  status: String
+}
+
+input create_directus_files_input {
+  charset: String
+  description: String
+  duration: Int
+  embed: String
+  filename_disk: String
+  filename_download: String!
+  filesize: GraphQLBigInt
+  folder: create_directus_folders_input
+  height: Int
+  id: ID
+  location: String
+  metadata: JSON
+  modified_by: create_directus_users_input
+  modified_on: Date
+  storage: String!
+  tags: JSON
+  title: String
+  type: String
+  uploaded_by: create_directus_users_input
+  uploaded_on: Date
+  width: Int
+}
+
+input create_directus_folders_input {
+  id: ID
+  name: String!
+  parent: create_directus_folders_input
+}
+
+input create_directus_roles_input {
+  admin_access: Boolean!
+  app_access: Boolean
+  description: String
+  enforce_tfa: Boolean!
+  icon: String
+  id: ID
+  ip_access: [String]
+  name: String!
+  users: [create_directus_users_input]
+}
+
+input create_directus_users_input {
+  auth_data: JSON
+  avatar: create_directus_files_input
+  description: String
+  email: String
+  email_notifications: Boolean
+  external_identifier: String
+  first_name: String
+  id: ID
+  language: String
+  last_access: Date
+  last_name: String
+  last_page: String
+  location: String
+  password: Hash
+  provider: String
+  role: create_directus_roles_input
+  status: String
+  tags: JSON
+  tfa_secret: Hash
+  theme: String
+  title: String
+  token: Hash
+}
+
+input create_languages_input {
+  code: ID!
+  direction: String
+  name: String
+}
+
+input create_pages_input {
+  date_created: Date
+  date_updated: Date
+  id: ID
+  price: Float
+  sort: Int
+  status: String
+  translations: [create_pages_translations_input]
+  user_created: create_directus_users_input
+  user_updated: create_directus_users_input
+}
+
+input create_pages_translations_input {
+  description: String
+  id: ID
+  languages_code: create_languages_input
+  name: String
+  page_title: String
+  pages_id: create_pages_input
+}
+
+input create_products_categories_input {
+  categories_id: create_categories_input
+  id: ID
+  products_id: create_products_input
+}
+
+input create_products_input {
+  categories: [create_products_categories_input]
+  date_created: Date
+  date_updated: Date
+  id: ID
+  images: JSON
+  name: String!
+  price: String!
+  sort: Int
+  status: String
+  translations: [create_products_translations_input]
+  user_created: create_directus_users_input
+  user_updated: create_directus_users_input
+}
+
+input create_products_translations_input {
+  description: String!
+  id: ID
+  languages_code: create_languages_input
+  name: String!
+  products_id: create_products_input
+}
+
+input date_filter_operators {
+  _between: [GraphQLStringOrFloat]
+  _eq: String
+  _gt: String
+  _gte: String
+  _in: [String]
+  _lt: String
+  _lte: String
+  _nbetween: [GraphQLStringOrFloat]
+  _neq: String
+  _nin: [String]
+  _nnull: Boolean
+  _null: Boolean
+}
+
+input datetime_function_filter_operators {
+  day: number_filter_operators
+  hour: number_filter_operators
+  minute: number_filter_operators
+  month: number_filter_operators
+  second: number_filter_operators
+  week: number_filter_operators
+  weekday: number_filter_operators
+  year: number_filter_operators
+}
+
+type datetime_functions {
+  day: Int
+  hour: Int
+  minute: Int
+  month: Int
+  second: Int
+  week: Int
+  weekday: Int
+  year: Int
+}
+
+type delete_many {
+  ids: [ID]!
+}
+
+type delete_one {
+  id: ID!
+}
+
+type directus_files {
+  charset: String
+  description: String
+  duration: Int
+  embed: String
+  filename_disk: String
+  filename_download: String!
+  filesize: GraphQLBigInt
+  folder(filter: directus_folders_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_folders
+  height: Int
+  id: ID!
+  location: String
+  metadata: JSON
+  metadata_func: count_functions
+  modified_by(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+  modified_on: Date
+  modified_on_func: datetime_functions
+  storage: String!
+  tags: JSON
+  tags_func: count_functions
+  title: String
+  type: String
+  uploaded_by(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+  uploaded_on: Date
+  uploaded_on_func: datetime_functions
+  width: Int
+}
+
+input directus_files_filter {
+  _and: [directus_files_filter]
+  _or: [directus_files_filter]
+  charset: string_filter_operators
+  description: string_filter_operators
+  duration: number_filter_operators
+  embed: string_filter_operators
+  filename_disk: string_filter_operators
+  filename_download: string_filter_operators
+  filesize: number_filter_operators
+  folder: directus_folders_filter
+  height: number_filter_operators
+  id: string_filter_operators
+  location: string_filter_operators
+  metadata: string_filter_operators
+  metadata_func: count_function_filter_operators
+  modified_by: directus_users_filter
+  modified_on: date_filter_operators
+  modified_on_func: datetime_function_filter_operators
+  storage: string_filter_operators
+  tags: string_filter_operators
+  tags_func: count_function_filter_operators
+  title: string_filter_operators
+  type: string_filter_operators
+  uploaded_by: directus_users_filter
+  uploaded_on: date_filter_operators
+  uploaded_on_func: datetime_function_filter_operators
+  width: number_filter_operators
+}
+
+type directus_folders {
+  id: ID!
+  name: String!
+  parent(filter: directus_folders_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_folders
+}
+
+input directus_folders_filter {
+  _and: [directus_folders_filter]
+  _or: [directus_folders_filter]
+  id: string_filter_operators
+  name: string_filter_operators
+  parent: directus_folders_filter
+}
+
+type directus_roles {
+  admin_access: Boolean!
+  app_access: Boolean
+  description: String
+  enforce_tfa: Boolean!
+  icon: String
+  id: ID!
+  ip_access: [String]
+  name: String!
+  users(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [directus_users]
+  users_func: count_functions
+}
+
+input directus_roles_filter {
+  _and: [directus_roles_filter]
+  _or: [directus_roles_filter]
+  admin_access: boolean_filter_operators
+  app_access: boolean_filter_operators
+  description: string_filter_operators
+  enforce_tfa: boolean_filter_operators
+  icon: string_filter_operators
+  id: string_filter_operators
+  ip_access: string_filter_operators
+  name: string_filter_operators
+  users: directus_users_filter
+  users_func: count_function_filter_operators
+}
+
+type directus_users {
+  auth_data: JSON
+  auth_data_func: count_functions
+  avatar(filter: directus_files_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_files
+  description: String
+  email: String
+  email_notifications: Boolean
+  external_identifier: String
+  first_name: String
+  id: ID!
+  language: String
+  last_access: Date
+  last_access_func: datetime_functions
+  last_name: String
+  last_page: String
+  location: String
+  password: Hash
+  provider: String
+  role(filter: directus_roles_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_roles
+  status: String
+  tags: JSON
+  tags_func: count_functions
+  tfa_secret: Hash
+  theme: String
+  title: String
+  token: Hash
+}
+
+input directus_users_filter {
+  _and: [directus_users_filter]
+  _or: [directus_users_filter]
+  auth_data: string_filter_operators
+  auth_data_func: count_function_filter_operators
+  avatar: directus_files_filter
+  description: string_filter_operators
+  email: string_filter_operators
+  email_notifications: boolean_filter_operators
+  external_identifier: string_filter_operators
+  first_name: string_filter_operators
+  id: string_filter_operators
+  language: string_filter_operators
+  last_access: date_filter_operators
+  last_access_func: datetime_function_filter_operators
+  last_name: string_filter_operators
+  last_page: string_filter_operators
+  location: string_filter_operators
+  password: hash_filter_operators
+  provider: string_filter_operators
+  role: directus_roles_filter
+  status: string_filter_operators
+  tags: string_filter_operators
+  tags_func: count_function_filter_operators
+  tfa_secret: hash_filter_operators
+  theme: string_filter_operators
+  title: string_filter_operators
+  token: hash_filter_operators
+}
+
+input hash_filter_operators {
+  _empty: Boolean
+  _nempty: Boolean
+  _nnull: Boolean
+  _null: Boolean
+}
+
+type languages {
+  code: ID!
+  direction: String
+  name: String
+}
+
+type languages_aggregated {
+  count: languages_aggregated_count
+  countAll: Int
+  countDistinct: languages_aggregated_count
+  group: JSON
+}
+
+type languages_aggregated_count {
+  code: Int
+  direction: Int
+  name: Int
+}
+
+input languages_filter {
+  _and: [languages_filter]
+  _or: [languages_filter]
+  code: string_filter_operators
+  direction: string_filter_operators
+  name: string_filter_operators
+}
+
+input number_filter_operators {
+  _between: [GraphQLStringOrFloat]
+  _eq: GraphQLStringOrFloat
+  _gt: GraphQLStringOrFloat
+  _gte: GraphQLStringOrFloat
+  _in: [GraphQLStringOrFloat]
+  _lt: GraphQLStringOrFloat
+  _lte: GraphQLStringOrFloat
+  _nbetween: [GraphQLStringOrFloat]
+  _neq: GraphQLStringOrFloat
+  _nin: [GraphQLStringOrFloat]
+  _nnull: Boolean
+  _null: Boolean
+}
+
+type pages {
+  date_created: Date
+  date_created_func: datetime_functions
+  date_updated: Date
+  date_updated_func: datetime_functions
+  id: ID!
+  price: Float
+  sort: Int
+  status: String
+  translations(filter: pages_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [pages_translations]
+  translations_func: count_functions
+  user_created(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+  user_updated(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+}
+
+type pages_aggregated {
+  avg: pages_aggregated_fields
+  avgDistinct: pages_aggregated_fields
+  count: pages_aggregated_count
+  countAll: Int
+  countDistinct: pages_aggregated_count
+  group: JSON
+  max: pages_aggregated_fields
+  min: pages_aggregated_fields
+  sum: pages_aggregated_fields
+  sumDistinct: pages_aggregated_fields
+}
+
+type pages_aggregated_count {
+  date_created: Int
+  date_updated: Int
+  id: Int
+  price: Int
+  sort: Int
+  status: Int
+  translations: Int
+  user_created: Int
+  user_updated: Int
+}
+
+type pages_aggregated_fields {
+  id: Float
+  price: Float
+  sort: Float
+}
+
+input pages_filter {
+  _and: [pages_filter]
+  _or: [pages_filter]
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  id: number_filter_operators
+  price: number_filter_operators
+  sort: number_filter_operators
+  status: string_filter_operators
+  translations: pages_translations_filter
+  translations_func: count_function_filter_operators
+  user_created: directus_users_filter
+  user_updated: directus_users_filter
+}
+
+type pages_translations {
+  description: String
+  id: ID!
+  languages_code(filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): languages
+  name: String
+  page_title: String
+  pages_id(filter: pages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): pages
+}
+
+type pages_translations_aggregated {
+  avg: pages_translations_aggregated_fields
+  avgDistinct: pages_translations_aggregated_fields
+  count: pages_translations_aggregated_count
+  countAll: Int
+  countDistinct: pages_translations_aggregated_count
+  group: JSON
+  max: pages_translations_aggregated_fields
+  min: pages_translations_aggregated_fields
+  sum: pages_translations_aggregated_fields
+  sumDistinct: pages_translations_aggregated_fields
+}
+
+type pages_translations_aggregated_count {
+  description: Int
+  id: Int
+  languages_code: Int
+  name: Int
+  page_title: Int
+  pages_id: Int
+}
+
+type pages_translations_aggregated_fields {
+  id: Float
+  pages_id: Float
+}
+
+input pages_translations_filter {
+  _and: [pages_translations_filter]
+  _or: [pages_translations_filter]
+  description: string_filter_operators
+  id: number_filter_operators
+  languages_code: languages_filter
+  name: string_filter_operators
+  page_title: string_filter_operators
+  pages_id: pages_filter
+}
+
+type products {
+  categories(filter: products_categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_categories]
+  categories_func: count_functions
+  date_created: Date
+  date_created_func: datetime_functions
+  date_updated: Date
+  date_updated_func: datetime_functions
+  id: ID!
+  images: JSON
+  images_func: count_functions
+  name: String!
+  price: String!
+  sort: Int
+  status: String
+  translations(filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations]
+  translations_func: count_functions
+  user_created(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+  user_updated(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+}
+
+type products_aggregated {
+  avg: products_aggregated_fields
+  avgDistinct: products_aggregated_fields
+  count: products_aggregated_count
+  countAll: Int
+  countDistinct: products_aggregated_count
+  group: JSON
+  max: products_aggregated_fields
+  min: products_aggregated_fields
+  sum: products_aggregated_fields
+  sumDistinct: products_aggregated_fields
+}
+
+type products_aggregated_count {
+  categories: Int
+  date_created: Int
+  date_updated: Int
+  id: Int
+  images: Int
+  name: Int
+  price: Int
+  sort: Int
+  status: Int
+  translations: Int
+  user_created: Int
+  user_updated: Int
+}
+
+type products_aggregated_fields {
+  id: Float
+  sort: Float
+}
+
+type products_categories {
+  categories_id(filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): categories
+  id: ID!
+  products_id(filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): products
+}
+
+type products_categories_aggregated {
+  avg: products_categories_aggregated_fields
+  avgDistinct: products_categories_aggregated_fields
+  count: products_categories_aggregated_count
+  countAll: Int
+  countDistinct: products_categories_aggregated_count
+  group: JSON
+  max: products_categories_aggregated_fields
+  min: products_categories_aggregated_fields
+  sum: products_categories_aggregated_fields
+  sumDistinct: products_categories_aggregated_fields
+}
+
+type products_categories_aggregated_count {
+  categories_id: Int
+  id: Int
+  products_id: Int
+}
+
+type products_categories_aggregated_fields {
+  categories_id: Float
+  id: Float
+  products_id: Float
+}
+
+input products_categories_filter {
+  _and: [products_categories_filter]
+  _or: [products_categories_filter]
+  categories_id: categories_filter
+  id: number_filter_operators
+  products_id: products_filter
+}
+
+input products_filter {
+  _and: [products_filter]
+  _or: [products_filter]
+  categories: products_categories_filter
+  categories_func: count_function_filter_operators
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  id: number_filter_operators
+  images: string_filter_operators
+  images_func: count_function_filter_operators
+  name: string_filter_operators
+  price: string_filter_operators
+  sort: number_filter_operators
+  status: string_filter_operators
+  translations: products_translations_filter
+  translations_func: count_function_filter_operators
+  user_created: directus_users_filter
+  user_updated: directus_users_filter
+}
+
+type products_translations {
+  description: String!
+  id: ID!
+  languages_code(filter: languages_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): languages
+  name: String!
+  products_id(filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): products
+}
+
+type products_translations_aggregated {
+  avg: products_translations_aggregated_fields
+  avgDistinct: products_translations_aggregated_fields
+  count: products_translations_aggregated_count
+  countAll: Int
+  countDistinct: products_translations_aggregated_count
+  group: JSON
+  max: products_translations_aggregated_fields
+  min: products_translations_aggregated_fields
+  sum: products_translations_aggregated_fields
+  sumDistinct: products_translations_aggregated_fields
+}
+
+type products_translations_aggregated_count {
+  description: Int
+  id: Int
+  languages_code: Int
+  name: Int
+  products_id: Int
+}
+
+type products_translations_aggregated_fields {
+  id: Float
+  products_id: Float
+}
+
+input products_translations_filter {
+  _and: [products_translations_filter]
+  _or: [products_translations_filter]
+  description: string_filter_operators
+  id: number_filter_operators
+  languages_code: languages_filter
+  name: string_filter_operators
+  products_id: products_filter
+}
+
+input string_filter_operators {
+  _contains: String
+  _empty: Boolean
+  _ends_with: String
+  _eq: String
+  _icontains: String
+  _in: [String]
+  _ncontains: String
+  _nempty: Boolean
+  _nends_with: String
+  _neq: String
+  _nin: [String]
+  _nnull: Boolean
+  _nstarts_with: String
+  _null: Boolean
+  _starts_with: String
+}
+
+input update_categories_input {
+  category: [String]
+  id: ID
+  name: String
+  sort: Int
+  status: String
+}
+
+input update_directus_files_input {
+  charset: String
+  description: String
+  duration: Int
+  embed: String
+  filename_disk: String
+  filename_download: String
+  filesize: GraphQLBigInt
+  folder: update_directus_folders_input
+  height: Int
+  id: ID
+  location: String
+  metadata: JSON
+  modified_by: update_directus_users_input
+  modified_on: Date
+  storage: String
+  tags: JSON
+  title: String
+  type: String
+  uploaded_by: update_directus_users_input
+  uploaded_on: Date
+  width: Int
+}
+
+input update_directus_folders_input {
+  id: ID
+  name: String
+  parent: update_directus_folders_input
+}
+
+input update_directus_roles_input {
+  admin_access: Boolean
+  app_access: Boolean
+  description: String
+  enforce_tfa: Boolean
+  icon: String
+  id: ID
+  ip_access: [String]
+  name: String
+  users: [update_directus_users_input]
+}
+
+input update_directus_users_input {
+  auth_data: JSON
+  avatar: update_directus_files_input
+  description: String
+  email: String
+  email_notifications: Boolean
+  external_identifier: String
+  first_name: String
+  id: ID
+  language: String
+  last_access: Date
+  last_name: String
+  last_page: String
+  location: String
+  password: Hash
+  provider: String
+  role: update_directus_roles_input
+  status: String
+  tags: JSON
+  tfa_secret: Hash
+  theme: String
+  title: String
+  token: Hash
+}
+
+input update_languages_input {
+  code: ID
+  direction: String
+  name: String
+}
+
+input update_pages_input {
+  date_created: Date
+  date_updated: Date
+  id: ID
+  price: Float
+  sort: Int
+  status: String
+  translations: [update_pages_translations_input]
+  user_created: update_directus_users_input
+  user_updated: update_directus_users_input
+}
+
+input update_pages_translations_input {
+  description: String
+  id: ID
+  languages_code: update_languages_input
+  name: String
+  page_title: String
+  pages_id: update_pages_input
+}
+
+input update_products_categories_input {
+  categories_id: update_categories_input
+  id: ID
+  products_id: update_products_input
+}
+
+input update_products_input {
+  categories: [update_products_categories_input]
+  date_created: Date
+  date_updated: Date
+  id: ID
+  images: JSON
+  name: String
+  price: String
+  sort: Int
+  status: String
+  translations: [update_products_translations_input]
+  user_created: update_directus_users_input
+  user_updated: update_directus_users_input
+}
+
+input update_products_translations_input {
+  description: String
+  id: ID
+  languages_code: update_languages_input
+  name: String
+  products_id: update_products_input
+}

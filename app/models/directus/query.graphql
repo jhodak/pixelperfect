@@ -1,0 +1,144 @@
+query getPages(
+  $filter: pages_filter
+  $limit: Int
+  $offset: Int
+  $page: Int
+  $search: String
+  $sort: [String]
+  $language: String
+) {
+  pages(
+    filter: $filter
+    limit: $limit
+    offset: $offset
+    page: $page
+    search: $search
+    sort: $sort
+  ) {
+    translations(filter: { languages_code: { code: { _eq: $language } } }) {
+      name
+      description
+      page_title
+    }
+    price
+    status
+    id
+  }
+}
+
+query getProducts(
+  $filter: products_filter
+  $limit: Int
+  $offset: Int
+  $page: Int
+  $search: String
+  $sort: [String]
+  $language: String
+) {
+  products(
+    filter: $filter
+    limit: $limit
+    offset: $offset
+    page: $page
+    search: $search
+    sort: $sort
+  ) {
+    translations(filter: { languages_code: { code: { _eq: $language } } }) {
+      name
+      description
+    }
+    id
+    price
+    images
+    name
+  }
+}
+
+query getLatestProducts(
+  $filter: products_filter
+  $limit: Int
+  $offset: Int
+  $page: Int
+  $search: String
+  $sort: [String]
+  $language: String
+) {
+  products(
+    filter: $filter
+    limit: $limit
+    offset: $offset
+    page: $page
+    search: $search
+    sort: $sort
+  ) {
+    translations(filter: { languages_code: { code: { _eq: $language } } }) {
+      name
+    }
+    id
+    price
+    images
+  }
+}
+
+query getProductsByCategory(
+  $filter: products_filter
+  $limit: Int
+  $offset: Int
+  $page: Int
+  $search: String
+  $sort: [String]
+  $language: String
+) {
+  products(
+    filter: $filter
+    limit: $limit
+    offset: $offset
+    page: $page
+    search: $search
+    sort: $sort
+  ) {
+    translations(filter: { languages_code: { code: { _eq: $language } } }) {
+      name
+    }
+    id
+    price
+    images
+    categories {
+      categories_id {
+        category
+      }
+    }
+  }
+}
+
+query getProduct(
+  $filter: products_filter
+  $limit: Int
+  $offset: Int
+  $page: Int
+  $search: String
+  $sort: [String]
+  $language: String
+) {
+  products(
+    filter: $filter
+    limit: $limit
+    offset: $offset
+    page: $page
+    search: $search
+    sort: $sort
+  ) {
+    translations(filter: { languages_code: { code: { _eq: $language } } }) {
+      name
+      description
+    }
+    id
+    price
+    images
+    categories {
+      categories_id {
+        category
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+body.light .colorToggle svg {
+  stroke: var(--mantine-color-black);
+}
+
+.index-banner {
+  background-image: url(/siteimages/unicorn-banner2.png);
+  height: 256px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
