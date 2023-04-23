@@ -1,13 +1,14 @@
 import { Text, Title, Button, Group, Footer } from "@mantine/core"
 import { useContext } from "react"
-import { GetProductsQuery } from "~/models/directus/sdk"
 import styles from "./styles.css"
-import { Link } from "@remix-run/react"
 import { CartContext } from "~/context/cart"
+import { GetProductsQuery } from "~/models/directus/sdk"
 
+/* c8 ignore start */
 export const links = () => {
   return [{ rel: "stylesheet", href: styles }]
 }
+/* c8 ignore end */
 
 interface productTypes {
   allProducts: GetProductsQuery
@@ -34,10 +35,11 @@ export default function Cart({ allProducts }: productTypes) {
                 }}
               >
                 <img
+                  alt={`thumbnail of ${product?.translations![0]?.name}`}
                   height="60"
-                  width="40"
                   src={`/productimages/${product.images[0].watermarked}`}
                   style={{ marginRight: "24px" }}
+                  width="40"
                 />
                 <div>
                   <Title order={4}>{product?.translations![0]?.name}</Title>
@@ -49,9 +51,9 @@ export default function Cart({ allProducts }: productTypes) {
                 </div>
               </div>
               <Button
-                variant="outline"
-                color="red"
                 compact
+                color="red"
+                variant="outline"
                 onClick={() => removeFromCart(cartItem.id)}
               >
                 X
@@ -64,7 +66,15 @@ export default function Cart({ allProducts }: productTypes) {
           <Text component="p">{`$ ${total.toFixed(2)}`}</Text>
         </Group>
         <Footer className="cartFooter" height="60">
-          <Button fullWidth variant="filled" color="primary" mt={24} mb={24}>
+          <Button
+            component="a"
+            fullWidth
+            color="primary"
+            mb={24}
+            mt={24}
+            variant="filled"
+            href="/checkout"
+          >
             {`Checkout $ ${total.toFixed(2)}`}
           </Button>
         </Footer>

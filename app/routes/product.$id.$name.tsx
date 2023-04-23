@@ -11,12 +11,12 @@ import {
 import { json, LinksFunction, LoaderFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { useContext, useMemo, useState } from "react"
+import { CrossFade } from "react-crossfade-simple"
+import { CartContext } from "~/context/cart"
 import { initDirectusCms } from "~/models/directus/directus.server"
 import { GetProductQuery } from "~/models/directus/sdk"
-import { cache } from "~/utils/db.server"
-import { CrossFade } from "react-crossfade-simple"
 import styles from "~/styles/productStyles.css"
-import { CartContext } from "~/context/cart"
+import { cache } from "~/utils/db.server"
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: styles }]
@@ -60,24 +60,23 @@ export default function Products() {
     }
   }, [product])
 
-  console.log(product)
-
   return (
     <div>
       <Container size={1280}>
-        <Title align="center" order={2} mb={24}>
+        <Title align="center" mb={24} order={2}>
           {product?.products![0]?.translations![0]?.name}
         </Title>
         <Grid>
           <Grid.Col md={9} sm={12}>
             <Grid>
-              <Grid.Col md={3} sm={12} orderMd={1} orderSm={2}>
+              <Grid.Col md={3} orderMd={1} orderSm={2} sm={12}>
                 {Object.keys(memoProductData?.products![0]?.images![0])
                   .reverse()
                   .map((imageKey, index) => {
                     return (
                       <Card
                         key={imageKey}
+                        mb={16}
                         style={{
                           margin: "0 auto 16px",
                           width: "132px",
@@ -89,11 +88,19 @@ export default function Products() {
                               ? "1px solid var(--mantine-color-gray-7)"
                               : "none",
                         }}
-                        mb={16}
                         onClick={() => setHover(imageKey)}
                       >
                         <img
+                          alt={`${
+                            memoProductData?.products![0]?.translations![0]
+                              ?.name
+                          } - ${imageKey}`}
                           className="image-tiles"
+                          src={`/productimages/${
+                            memoProductData?.products![0]?.images![0]?.[
+                              imageKey
+                            ]
+                          }`}
                           style={{
                             transition: "all .5s ease",
                             maxWidth: "100px",
@@ -103,11 +110,6 @@ export default function Products() {
                             margin: "0 auto",
                             opacity: hover === imageKey ? "1" : ".6",
                           }}
-                          src={`/productimages/${
-                            memoProductData?.products![0]?.images![0]?.[
-                              imageKey
-                            ]
-                          }`}
                         />
                       </Card>
                     )
@@ -116,26 +118,29 @@ export default function Products() {
 
               <Grid.Col
                 md={9}
-                sm={12}
-                style={{ maxHeight: "500px" }}
                 orderMd={2}
                 orderSm={1}
+                sm={12}
+                style={{ maxHeight: "500px" }}
               >
                 <CrossFade contentKey={hover}>
                   <img
-                    style={{ maxHeight: "500px", borderRadius: "8px" }}
                     key={hover}
+                    alt={`${
+                      memoProductData?.products![0]?.translations![0]?.name
+                    } - product display area`}
                     className="image-tiles"
                     src={`/productimages/${
                       memoProductData?.products![0]?.images![0]?.[hover]
                     }`}
+                    style={{ maxHeight: "500px", borderRadius: "8px" }}
                   />
                 </CrossFade>
               </Grid.Col>
             </Grid>
           </Grid.Col>
           <Grid.Col md={3} sm={12}>
-            <Text component="p" style={{ fontWeight: "bold" }} size={20} mt={0}>
+            <Text component="p" mt={0} size={20} style={{ fontWeight: "bold" }}>
               {`$ ${memoProductData?.products![0]?.price}`}
             </Text>
             <Text component="p">Short description goes here</Text>
@@ -151,18 +156,18 @@ export default function Products() {
               </ul>
             </Text>
             <Button
+              fullWidth
               className={clsx(
                 cart.some(
                   (item) => item?.id === memoProductData?.products![0]?.id
                 ) && "inCart",
                 "addToCart"
               )}
-              fullWidth
               disabled={cart.some(
                 (item) => item?.id === memoProductData?.products![0]?.id
               )}
-              variant="outline"
               mt={24}
+              variant="outline"
               onClick={() => {
                 if (memoProductData?.products![0]?.id) {
                   addToCart(memoProductData?.products![0]?.id, 1)
@@ -177,7 +182,7 @@ export default function Products() {
                 ? "In Cart"
                 : "Add to cart"}
             </Button>
-            <Button variant="filled" fullWidth mt={24} mb={24}>
+            <Button fullWidth mb={24} mt={24} variant="filled">
               Buy now
             </Button>
             <Text component="p">
@@ -189,12 +194,16 @@ export default function Products() {
         </Grid>
         {product?.products![0]?.categories![0]?.categories_id?.category && (
           <>
-            <Title order={4} mb={16} mt={48}>
+            <Title mb={16} mt={48} order={4}>
               Categories:
             </Title>
             {product?.products![0]?.categories![0]?.categories_id?.category.map(
               (category) => {
-                return <Badge mr={16}>{category}</Badge>
+                return (
+                  <Badge key={category} mr={16}>
+                    {category}
+                  </Badge>
+                )
               }
             )}
           </>

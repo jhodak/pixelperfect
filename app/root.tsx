@@ -1,4 +1,12 @@
 import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+  createEmotionCache,
+} from "@mantine/core"
+import { useLocalStorage } from "@mantine/hooks"
+import { StylesPlaceholder } from "@mantine/remix"
+import {
   LinksFunction,
   LoaderFunction,
   V2_MetaFunction,
@@ -13,31 +21,17 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react"
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-  createEmotionCache,
-} from "@mantine/core"
-import { StylesPlaceholder } from "@mantine/remix"
-import { theme } from "~/theme/theme"
-import { useColorScheme, useLocalStorage } from "@mantine/hooks"
+import { useMemo } from "react"
 import FooterLayout, {
   links as FooterLinks,
 } from "./components/molecules/footer"
-import styles from "~/styles/rootStyles.css"
 import HeaderMenu, { links as HeaderLinks } from "./components/molecules/header"
 import { CartContextProvider } from "./context/cart"
-import { GetProductsQuery } from "./models/directus/sdk"
 import { initDirectusCms } from "./models/directus/directus.server"
+import { GetProductsQuery } from "./models/directus/sdk"
 import { cache } from "./utils/db.server"
-import { useMemo } from "react"
-
-enum keys {
-  "charset",
-  "title",
-  "viewport",
-}
+import styles from "~/styles/rootStyles.css"
+import { theme } from "~/theme/theme"
 
 export const links: LinksFunction = () => {
   return [
@@ -144,10 +138,10 @@ export default function App() {
       toggleColorScheme={toggleColorScheme}
     >
       <MantineProvider
-        theme={{ colorScheme, ...theme }}
+        withCSSVariables
         withGlobalStyles
         withNormalizeCSS
-        withCSSVariables
+        theme={{ colorScheme, ...theme }}
       >
         <CartContextProvider>
           <html lang="en">
@@ -158,9 +152,9 @@ export default function App() {
             </head>
             <body className={colorScheme}>
               <HeaderMenu
-                links={navLinks}
-                button={false}
                 allProducts={memoProductsData}
+                button={false}
+                links={navLinks}
               />
               <main>
                 <Outlet />

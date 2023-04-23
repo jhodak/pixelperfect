@@ -1,5 +1,5 @@
-import { cache } from "~/utils/db.server"
 import { initDirectusCms } from "./directus/directus.server"
+import { cache } from "~/utils/db.server"
 
 const directus = initDirectusCms()
 export async function getCmsData(

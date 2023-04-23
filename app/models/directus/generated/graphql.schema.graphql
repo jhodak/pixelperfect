@@ -30,6 +30,8 @@ type Mutation {
   create_products_items(data: [create_products_input!], filter: products_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products!]!
   create_products_translations_item(data: create_products_translations_input!): products_translations
   create_products_translations_items(data: [create_products_translations_input!], filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+  create_user_item(data: create_user_input!): user
+  create_user_items(data: [create_user_input!], filter: user_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [user!]!
   delete_categories_item(id: ID!): delete_one
   delete_categories_items(ids: [ID]!): delete_many
   delete_languages_item(id: ID!): delete_one
@@ -44,6 +46,8 @@ type Mutation {
   delete_products_items(ids: [ID]!): delete_many
   delete_products_translations_item(id: ID!): delete_one
   delete_products_translations_items(ids: [ID]!): delete_many
+  delete_user_item(id: ID!): delete_one
+  delete_user_items(ids: [ID]!): delete_many
   update_categories_batch(data: [update_categories_input!], filter: categories_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
   update_categories_item(data: update_categories_input!, id: ID!): categories
   update_categories_items(data: update_categories_input!, filter: categories_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [categories!]!
@@ -65,6 +69,9 @@ type Mutation {
   update_products_translations_batch(data: [update_products_translations_input!], filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
   update_products_translations_item(data: update_products_translations_input!, id: ID!): products_translations
   update_products_translations_items(data: update_products_translations_input!, filter: products_translations_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
+  update_user_batch(data: [update_user_input!], filter: user_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [user!]!
+  update_user_item(data: update_user_input!, id: ID!): user
+  update_user_items(data: update_user_input!, filter: user_filter, ids: [ID]!, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [user!]!
 }
 
 type Query {
@@ -89,6 +96,9 @@ type Query {
   products_translations(filter: products_translations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations!]!
   products_translations_aggregated(filter: products_translations_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [products_translations_aggregated!]!
   products_translations_by_id(id: ID!): products_translations
+  user(filter: user_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [user!]!
+  user_aggregated(filter: user_filter, groupBy: [String], limit: Int, offset: Int, page: Int, search: String, sort: [String]): [user_aggregated!]!
+  user_by_id(id: ID!): user
 }
 
 input boolean_filter_operators {
@@ -279,6 +289,16 @@ input create_products_translations_input {
   languages_code: create_languages_input
   name: String!
   products_id: create_products_input
+}
+
+input create_user_input {
+  date_created: Date
+  date_updated: Date
+  id: ID
+  sort: Int
+  status: String
+  user_created: create_directus_users_input
+  user_updated: create_directus_users_input
 }
 
 input date_filter_operators {
@@ -948,4 +968,68 @@ input update_products_translations_input {
   languages_code: update_languages_input
   name: String
   products_id: update_products_input
+}
+
+input update_user_input {
+  date_created: Date
+  date_updated: Date
+  id: ID
+  sort: Int
+  status: String
+  user_created: update_directus_users_input
+  user_updated: update_directus_users_input
+}
+
+type user {
+  date_created: Date
+  date_created_func: datetime_functions
+  date_updated: Date
+  date_updated_func: datetime_functions
+  id: ID!
+  sort: Int
+  status: String
+  user_created(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+  user_updated(filter: directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): directus_users
+}
+
+type user_aggregated {
+  avg: user_aggregated_fields
+  avgDistinct: user_aggregated_fields
+  count: user_aggregated_count
+  countAll: Int
+  countDistinct: user_aggregated_count
+  group: JSON
+  max: user_aggregated_fields
+  min: user_aggregated_fields
+  sum: user_aggregated_fields
+  sumDistinct: user_aggregated_fields
+}
+
+type user_aggregated_count {
+  date_created: Int
+  date_updated: Int
+  id: Int
+  sort: Int
+  status: Int
+  user_created: Int
+  user_updated: Int
+}
+
+type user_aggregated_fields {
+  id: Float
+  sort: Float
+}
+
+input user_filter {
+  _and: [user_filter]
+  _or: [user_filter]
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  id: number_filter_operators
+  sort: number_filter_operators
+  status: string_filter_operators
+  user_created: directus_users_filter
+  user_updated: directus_users_filter
 }
