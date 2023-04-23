@@ -6,7 +6,6 @@
     "generate:types:cms": "graphql-codegen -r dotenv/config --config ./app/models/directus/codegen.config.ts",
     "build": "run-s generate:types remix:build",
     "dev": "run-s generate:types remix:dev",
-    "start": "remix-serve build",
     "typecheck": "tsc -b",
     "format": "prettier --write .",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
@@ -15,7 +14,11 @@
     "test:unit:run": "vitest run --coverage",
     "test:unit:changed": "vitest run --coverage --changed",
     "remix:build": "remix build",
-    "remix:dev": "remix dev"
+    "remix:dev": "remix dev",
+    "autotest": "pnpm generate:types && pnpm lint && pnpm test && pnpm typecheck",
+    "start": "pm2 start --name=remix --update-env pnpm -- remix ",
+    "stop": "pm2 stop remix && pm2 delete remix",
+    "remix": "pnpm build && PORT=3006 remix-serve build"
   },
   "dependencies": {
     "@babel/core": "^7.21.4",
