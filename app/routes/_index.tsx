@@ -1,20 +1,19 @@
-import { Container, Title, useMantineColorScheme } from "@mantine/core"
+import { Container, Title } from "@mantine/core"
+import { useMediaQuery } from "@mantine/hooks"
 import { json, LoaderFunction, V2_MetaFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
-import { useContext, useMemo } from "react"
+import { useMemo } from "react"
+import ProductSlider, {
+  links as sliderLinks,
+} from "~/components/molecules/productslider"
 import { initDirectusCms } from "~/models/directus/directus.server"
 import {
   GetPagesQuery,
   GetLatestProductsQuery,
   GetProductsQuery,
 } from "~/models/directus/sdk"
-import { cache } from "~/utils/db.server"
 import styles from "~/styles/indexStyles.css"
-
-import ProductSlider, {
-  links as sliderLinks,
-} from "~/components/molecules/productslider"
-import { useMediaQuery } from "@mantine/hooks"
+import { cache } from "~/utils/db.server"
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "Pixel Perfect Art Shop" }]
@@ -139,13 +138,13 @@ export default function Index() {
         }}
       >
         <Title
-          className="tangerine"
-          order={1}
           align="center"
+          className="tangerine"
+          color={"var(--mantine-color-white)"}
+          opacity={1}
+          order={1}
           pt={"24px"}
           size={48}
-          opacity={1}
-          color={"var(--mantine-color-white)"}
         >
           Pixel Perfect Art Shop
         </Title>

@@ -1,7 +1,7 @@
 import { Container } from "@mantine/core"
 import { json, LinksFunction, LoaderFunction } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import ProductGrid, {
   links as ProductGridLinks,
 } from "~/components/molecules/productgrid"

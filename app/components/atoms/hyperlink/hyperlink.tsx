@@ -1,4 +1,4 @@
-import { MantineColor, Text } from "@mantine/core"
+import { Anchor, MantineColor, Text } from "@mantine/core"
 import { Link } from "@remix-run/react"
 
 type links = {
@@ -12,43 +12,33 @@ type links = {
 }
 
 export default function HyperLink(data: links) {
-  if (data.href) {
-    return (
-      <Text
-        component="span"
-        color={data.color}
-        weight={data.bold ? "700" : "500"}
-      >
-        <a
-          style={{ color: "inherit", textDecoration: "none" }}
-          className={data.className}
-          href={data.href}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {data.children}
-        </a>
-      </Text>
-    )
-  }
-  if (data.to) {
-    return (
-      <Text
-        component="span"
-        color={data.color}
-        weight={data.bold ? "700" : "500"}
-      >
+  return (
+    <Text
+      color={data.color}
+      component="span"
+      weight={data.bold ? "700" : "500"}
+    >
+      {data.to && (
         <Link
-          style={{ color: "inherit", textDecoration: "none" }}
           className={data.className}
-          to={data.to}
           prefetch="intent"
+          style={{ color: "inherit", textDecoration: "none" }}
+          to={data.to}
         >
           <>{data.children}</>
         </Link>
-      </Text>
-    )
-  } else {
-    return null
-  }
+      )}
+      {data.href && (
+        <Anchor
+          className={data.className}
+          href={data.href}
+          rel="noreferrer"
+          style={{ color: "inherit", textDecoration: "none" }}
+          target="_blank"
+        >
+          {data.children}
+        </Anchor>
+      )}
+    </Text>
+  )
 }

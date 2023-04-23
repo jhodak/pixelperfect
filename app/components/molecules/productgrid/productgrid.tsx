@@ -6,16 +6,19 @@ import {
   Grid,
   Pagination,
   clsx,
+  Group,
 } from "@mantine/core"
-import { useContext, useState } from "react"
-import { GetLatestProductsQuery } from "~/models/directus/sdk"
-import styles from "./styles.css"
 import { Link } from "@remix-run/react"
+import { useContext, useState } from "react"
+import styles from "./styles.css"
 import { CartContext } from "~/context/cart"
+import { GetLatestProductsQuery } from "~/models/directus/sdk"
 
+/* c8 ignore start */
 export const links = () => {
   return [{ rel: "stylesheet", href: styles }]
 }
+/* c8 ignore end */
 
 interface productGridTypes {
   productsData: GetLatestProductsQuery
@@ -30,25 +33,28 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
 
   return (
     <section className="product-grid">
-      <Title order={2} mt={48} mb={24} align="center">
+      <Title align="center" mb={24} mt={48} order={2}>
         {title}
       </Title>
-      <Pagination
-        boundaries={1}
+      <Pagination.Root
         total={Math.ceil(productsData?.products?.length / limit)}
+        boundaries={1}
         onChange={(page) => setPage(page)}
-        align="center"
-        position="center"
-        mb={24}
-        mt={24}
-      />
+        aria-label="product pagination controls"
+      >
+        <Group spacing={5} position="center" mb={24} mt={24} align="center">
+          <Pagination.Previous aria-label="previous product page" />
+          <Pagination.Items />
+          <Pagination.Next aria-label="next product page" />
+        </Group>
+      </Pagination.Root>
       <Grid>
         {productsData?.products?.map((product, index) => {
           if (index + 1 <= page * limit && index + 1 > (page - 1) * limit) {
             return (
               <Grid.Col
-                span={3}
                 key={`${index}-${product?.translations![0]?.name}`}
+                span={3}
               >
                 <Card
                   className="product-slider-card"
@@ -61,34 +67,40 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
                       product?.translations![0]?.name
                     }`}
                   >
-                    <Title order={4} mb={16} align="center">
+                    <Title align="center" mb={16} order={3}>
                       {product?.translations![0]?.name ?? "Product Name"}
                     </Title>
 
                     <div className="crossFade">
                       <img
+                        alt={`${
+                          product?.translations![0]?.name
+                        } pictured framed on a white wall.`}
                         className="bottom"
                         src={`/productimages/${product.images[0].mockup}`}
                       />
                       <img
+                        alt={`watermarked version of ${
+                          product?.translations![0]?.name
+                        }`}
                         className="top"
+                        src={`/productimages/${product.images[0].watermarked}`}
                         style={{
                           opacity: `${hover === index ? "0" : "1"}`,
                         }}
-                        src={`/productimages/${product.images[0].watermarked}`}
                       />
                     </div>
                     <Text align="center" mt={16}>{`$ ${product.price}`}</Text>
                   </Link>
                   <Button
+                    fullWidth
                     className={clsx(
                       cart.some((item) => item?.id === product.id) && "inCart",
                       "addToCart"
                     )}
-                    fullWidth
                     disabled={cart.some((item) => item?.id === product.id)}
-                    variant="filled"
                     mt={24}
+                    variant="filled"
                     onClick={() => {
                       if (product.id) {
                         addToCart(product.id, 1)
@@ -107,14 +119,28 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
           }
         })}
       </Grid>
-      <Pagination
-        mt={48}
+      {/* <Pagination
+        align="center"
         boundaries={1}
+        mt={48}
+        position="center"
         total={Math.ceil(productsData?.products?.length / limit)}
         onChange={(page) => setPage(page)}
-        align="center"
-        position="center"
-      />
+        aria-label="product pagination controls"
+      /> */}
+
+      <Pagination.Root
+        total={Math.ceil(productsData?.products?.length / limit)}
+        boundaries={1}
+        onChange={(page) => setPage(page)}
+        aria-label="product pagination controls"
+      >
+        <Group spacing={5} position="center" mt={48} align="center">
+          <Pagination.Previous aria-label="previous product page" />
+          <Pagination.Items />
+          <Pagination.Next aria-label="next product page" />
+        </Group>
+      </Pagination.Root>
     </section>
   )
 }

@@ -36,6 +36,8 @@ export type Mutation = {
   create_products_items: Array<Products>;
   create_products_translations_item?: Maybe<Products_Translations>;
   create_products_translations_items: Array<Products_Translations>;
+  create_user_item?: Maybe<User>;
+  create_user_items: Array<User>;
   delete_categories_item?: Maybe<Delete_One>;
   delete_categories_items?: Maybe<Delete_Many>;
   delete_languages_item?: Maybe<Delete_One>;
@@ -50,6 +52,8 @@ export type Mutation = {
   delete_products_items?: Maybe<Delete_Many>;
   delete_products_translations_item?: Maybe<Delete_One>;
   delete_products_translations_items?: Maybe<Delete_Many>;
+  delete_user_item?: Maybe<Delete_One>;
+  delete_user_items?: Maybe<Delete_Many>;
   update_categories_batch: Array<Categories>;
   update_categories_item?: Maybe<Categories>;
   update_categories_items: Array<Categories>;
@@ -71,6 +75,9 @@ export type Mutation = {
   update_products_translations_batch: Array<Products_Translations>;
   update_products_translations_item?: Maybe<Products_Translations>;
   update_products_translations_items: Array<Products_Translations>;
+  update_user_batch: Array<User>;
+  update_user_item?: Maybe<User>;
+  update_user_items: Array<User>;
 };
 
 
@@ -186,6 +193,22 @@ export type MutationCreate_Products_Translations_ItemsArgs = {
 };
 
 
+export type MutationCreate_User_ItemArgs = {
+  data: Create_User_Input;
+};
+
+
+export type MutationCreate_User_ItemsArgs = {
+  data?: InputMaybe<Array<Create_User_Input>>;
+  filter?: InputMaybe<User_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
 export type MutationDelete_Categories_ItemArgs = {
   id: Scalars['ID'];
 };
@@ -252,6 +275,16 @@ export type MutationDelete_Products_Translations_ItemArgs = {
 
 
 export type MutationDelete_Products_Translations_ItemsArgs = {
+  ids: Array<InputMaybe<Scalars['ID']>>;
+};
+
+
+export type MutationDelete_User_ItemArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDelete_User_ItemsArgs = {
   ids: Array<InputMaybe<Scalars['ID']>>;
 };
 
@@ -458,6 +491,35 @@ export type MutationUpdate_Products_Translations_ItemsArgs = {
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+
+export type MutationUpdate_User_BatchArgs = {
+  data?: InputMaybe<Array<Update_User_Input>>;
+  filter?: InputMaybe<User_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type MutationUpdate_User_ItemArgs = {
+  data: Update_User_Input;
+  id: Scalars['ID'];
+};
+
+
+export type MutationUpdate_User_ItemsArgs = {
+  data: Update_User_Input;
+  filter?: InputMaybe<User_Filter>;
+  ids: Array<InputMaybe<Scalars['ID']>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
 export type Query = {
   __typename?: 'Query';
   categories: Array<Categories>;
@@ -481,6 +543,9 @@ export type Query = {
   products_translations: Array<Products_Translations>;
   products_translations_aggregated: Array<Products_Translations_Aggregated>;
   products_translations_by_id?: Maybe<Products_Translations>;
+  user: Array<User>;
+  user_aggregated: Array<User_Aggregated>;
+  user_by_id?: Maybe<User>;
 };
 
 
@@ -662,6 +727,32 @@ export type QueryProducts_Translations_AggregatedArgs = {
 
 
 export type QueryProducts_Translations_By_IdArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryUserArgs = {
+  filter?: InputMaybe<User_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryUser_AggregatedArgs = {
+  filter?: InputMaybe<User_Filter>;
+  groupBy?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type QueryUser_By_IdArgs = {
   id: Scalars['ID'];
 };
 
@@ -858,6 +949,16 @@ export type Create_Products_Translations_Input = {
   languages_code?: InputMaybe<Create_Languages_Input>;
   name: Scalars['String'];
   products_id?: InputMaybe<Create_Products_Input>;
+};
+
+export type Create_User_Input = {
+  date_created?: InputMaybe<Scalars['Date']>;
+  date_updated?: InputMaybe<Scalars['Date']>;
+  id?: InputMaybe<Scalars['ID']>;
+  sort?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['String']>;
+  user_created?: InputMaybe<Create_Directus_Users_Input>;
+  user_updated?: InputMaybe<Create_Directus_Users_Input>;
 };
 
 export type Date_Filter_Operators = {
@@ -1757,6 +1858,94 @@ export type Update_Products_Translations_Input = {
   languages_code?: InputMaybe<Update_Languages_Input>;
   name?: InputMaybe<Scalars['String']>;
   products_id?: InputMaybe<Update_Products_Input>;
+};
+
+export type Update_User_Input = {
+  date_created?: InputMaybe<Scalars['Date']>;
+  date_updated?: InputMaybe<Scalars['Date']>;
+  id?: InputMaybe<Scalars['ID']>;
+  sort?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['String']>;
+  user_created?: InputMaybe<Update_Directus_Users_Input>;
+  user_updated?: InputMaybe<Update_Directus_Users_Input>;
+};
+
+export type User = {
+  __typename?: 'user';
+  date_created?: Maybe<Scalars['Date']>;
+  date_created_func?: Maybe<Datetime_Functions>;
+  date_updated?: Maybe<Scalars['Date']>;
+  date_updated_func?: Maybe<Datetime_Functions>;
+  id: Scalars['ID'];
+  sort?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['String']>;
+  user_created?: Maybe<Directus_Users>;
+  user_updated?: Maybe<Directus_Users>;
+};
+
+
+export type UserUser_CreatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type UserUser_UpdatedArgs = {
+  filter?: InputMaybe<Directus_Users_Filter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']>;
+  search?: InputMaybe<Scalars['String']>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type User_Aggregated = {
+  __typename?: 'user_aggregated';
+  avg?: Maybe<User_Aggregated_Fields>;
+  avgDistinct?: Maybe<User_Aggregated_Fields>;
+  count?: Maybe<User_Aggregated_Count>;
+  countAll?: Maybe<Scalars['Int']>;
+  countDistinct?: Maybe<User_Aggregated_Count>;
+  group?: Maybe<Scalars['JSON']>;
+  max?: Maybe<User_Aggregated_Fields>;
+  min?: Maybe<User_Aggregated_Fields>;
+  sum?: Maybe<User_Aggregated_Fields>;
+  sumDistinct?: Maybe<User_Aggregated_Fields>;
+};
+
+export type User_Aggregated_Count = {
+  __typename?: 'user_aggregated_count';
+  date_created?: Maybe<Scalars['Int']>;
+  date_updated?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  sort?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['Int']>;
+  user_created?: Maybe<Scalars['Int']>;
+  user_updated?: Maybe<Scalars['Int']>;
+};
+
+export type User_Aggregated_Fields = {
+  __typename?: 'user_aggregated_fields';
+  id?: Maybe<Scalars['Float']>;
+  sort?: Maybe<Scalars['Float']>;
+};
+
+export type User_Filter = {
+  _and?: InputMaybe<Array<InputMaybe<User_Filter>>>;
+  _or?: InputMaybe<Array<InputMaybe<User_Filter>>>;
+  date_created?: InputMaybe<Date_Filter_Operators>;
+  date_created_func?: InputMaybe<Datetime_Function_Filter_Operators>;
+  date_updated?: InputMaybe<Date_Filter_Operators>;
+  date_updated_func?: InputMaybe<Datetime_Function_Filter_Operators>;
+  id?: InputMaybe<Number_Filter_Operators>;
+  sort?: InputMaybe<Number_Filter_Operators>;
+  status?: InputMaybe<String_Filter_Operators>;
+  user_created?: InputMaybe<Directus_Users_Filter>;
+  user_updated?: InputMaybe<Directus_Users_Filter>;
 };
 
 export type GetPagesQueryVariables = Exact<{

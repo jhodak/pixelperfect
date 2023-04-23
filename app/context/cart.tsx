@@ -1,11 +1,5 @@
-import { useFetcher } from "@remix-run/react"
-import React, {
-  Dispatch,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react"
+import { useBeforeUnload } from "@remix-run/react"
+import React, { useContext, useEffect, useMemo, useState } from "react"
 import { findIndex } from "~/utils/utils"
 
 export interface CartItem {
@@ -42,46 +36,60 @@ export function useCart() {
 const CartContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([])
 
+  useBeforeUnload(
+    React.useCallback(() => {
+      if (cart.length !== 0) {
+        localStorage?.setItem("cart", JSON.stringify(cart))
+      }
+    }, [cart])
+  )
+
+  useEffect(() => {
+    if (cart.length === 0 && localStorage?.getItem("cart")) {
+      let storedCart = JSON.parse(localStorage?.getItem("cart")!)
+      setCart(storedCart)
+    }
+  }, [])
+
   const addToCart = (id: string, quantity: number) => {
     const existingItemIndex = cart.findIndex((item) => item.id === id)
     if (existingItemIndex !== -1) {
       const updatedCart = [...cart]
       updatedCart[existingItemIndex].quantity += quantity
+      localStorage?.setItem("cart", JSON.stringify(updatedCart))
       setCart(updatedCart)
     } else {
-      setCart([...cart, { id, quantity }])
+      const newCart = [...cart, { id, quantity }]
+      localStorage?.setItem("cart", JSON.stringify(newCart))
+      setCart(newCart)
     }
   }
 
   const removeFromCart = (id: string) => {
     const cartIndex = findIndex(cart, id)
+    let updatedCart = [...cart]
     if (cart[cartIndex].quantity < 2) {
-      setCart((prevCart) => prevCart.filter((item) => item.id !== id))
+      updatedCart.splice(cartIndex, 1)
     } else {
-      const updatedCart = cart.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            quantity: item.quantity - 1,
-          }
-        } else {
-          return item
-        }
+      updatedCart.map((item) => {
+        if (item.id === id) item.quantity = item.quantity - 1
+        return item
       })
-      setCart(updatedCart)
     }
+    localStorage?.setItem("cart", JSON.stringify(updatedCart))
+    setCart(updatedCart)
   }
 
   const cartValue = useMemo(() => {
     return {
       cart,
-      addToCart,
-      removeFromCart,
     }
   }, [cart])
 
   return (
-    <CartContext.Provider value={cartValue}>{children}</CartContext.Provider>
+    <CartContext.Provider value={{ ...cartValue, addToCart, removeFromCart }}>
+      {children}
+    </CartContext.Provider>
   )
 }
 
