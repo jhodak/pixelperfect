@@ -10,7 +10,7 @@
     "format": "prettier --write .",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "lint:fix": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint .",
-    "test": "vitest run",
+    "test": "vitest run --coverage",
     "test:unit:run": "vitest run --coverage",
     "test:unit:changed": "vitest run --coverage --changed",
     "remix:build": "remix build",
