@@ -1,3 +1,3 @@
-import ProductSlider from "./productslider"
-export * from "./productslider"
+import ProductSlider from './productslider'
+export * from './productslider'
 export default ProductSlider

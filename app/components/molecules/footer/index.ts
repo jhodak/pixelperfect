@@ -1,3 +1,3 @@
-import FooterLayout from "./footer"
-export * from "./footer"
+import FooterLayout from './footer'
+export * from './footer'
 export default FooterLayout

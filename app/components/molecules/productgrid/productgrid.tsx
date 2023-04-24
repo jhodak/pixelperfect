@@ -7,16 +7,16 @@ import {
   Pagination,
   clsx,
   Group,
-} from "@mantine/core"
-import { Link } from "@remix-run/react"
-import { useContext, useState } from "react"
-import styles from "./styles.css"
-import { CartContext } from "~/context/cart"
-import { GetLatestProductsQuery } from "~/models/directus/sdk"
+} from '@mantine/core'
+import { Link } from '@remix-run/react'
+import { useContext, useState } from 'react'
+import styles from './styles.css'
+import { CartContext } from '~/context/cart'
+import { GetLatestProductsQuery } from '~/models/directus/sdk'
 
 /* c8 ignore start */
 export const links = () => {
-  return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: 'stylesheet', href: styles }]
 }
 /* c8 ignore end */
 
@@ -37,12 +37,12 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
         {title}
       </Title>
       <Pagination.Root
-        total={Math.ceil(productsData?.products?.length / limit)}
-        boundaries={1}
-        onChange={(page) => setPage(page)}
         aria-label="product pagination controls"
+        boundaries={1}
+        total={Math.ceil(productsData?.products?.length / limit)}
+        onChange={(page) => setPage(page)}
       >
-        <Group spacing={5} position="center" mb={24} mt={24} align="center">
+        <Group align="center" mb={24} mt={24} position="center" spacing={5}>
           <Pagination.Previous aria-label="previous product page" />
           <Pagination.Items />
           <Pagination.Next aria-label="next product page" />
@@ -68,7 +68,7 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
                     }`}
                   >
                     <Title align="center" mb={16} order={3}>
-                      {product?.translations![0]?.name ?? "Product Name"}
+                      {product?.translations![0]?.name ?? 'Product Name'}
                     </Title>
 
                     <div className="crossFade">
@@ -86,7 +86,7 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
                         className="top"
                         src={`/productimages/${product.images[0].watermarked}`}
                         style={{
-                          opacity: `${hover === index ? "0" : "1"}`,
+                          opacity: `${hover === index ? '0' : '1'}`,
                         }}
                       />
                     </div>
@@ -95,8 +95,8 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
                   <Button
                     fullWidth
                     className={clsx(
-                      cart.some((item) => item?.id === product.id) && "inCart",
-                      "addToCart"
+                      cart.some((item) => item?.id === product.id) && 'inCart',
+                      'addToCart'
                     )}
                     disabled={cart.some((item) => item?.id === product.id)}
                     mt={24}
@@ -110,8 +110,8 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
                     }}
                   >
                     {cart.some((item) => item?.id === product.id)
-                      ? "In Cart"
-                      : "Add to cart"}
+                      ? 'In Cart'
+                      : 'Add to cart'}
                   </Button>
                 </Card>
               </Grid.Col>
@@ -130,12 +130,12 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
       /> */}
 
       <Pagination.Root
-        total={Math.ceil(productsData?.products?.length / limit)}
-        boundaries={1}
-        onChange={(page) => setPage(page)}
         aria-label="product pagination controls"
+        boundaries={1}
+        total={Math.ceil(productsData?.products?.length / limit)}
+        onChange={(page) => setPage(page)}
       >
-        <Group spacing={5} position="center" mt={48} align="center">
+        <Group align="center" mt={48} position="center" spacing={5}>
           <Pagination.Previous aria-label="previous product page" />
           <Pagination.Items />
           <Pagination.Next aria-label="next product page" />

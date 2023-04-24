@@ -1,13 +1,13 @@
-import { Container } from "@mantine/core"
-import { json, LinksFunction, LoaderFunction } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
-import { useMemo } from "react"
+import { Container } from '@mantine/core'
+import { json, LinksFunction, LoaderFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { useMemo } from 'react'
 import ProductGrid, {
   links as ProductGridLinks,
-} from "~/components/molecules/productgrid"
-import { initDirectusCms } from "~/models/directus/directus.server"
-import { GetPagesQuery, GetProductsQuery } from "~/models/directus/sdk"
-import { cache } from "~/utils/db.server"
+} from '~/components/molecules/productgrid'
+import { initDirectusCms } from '~/models/directus/directus.server'
+import { GetPagesQuery, GetProductsQuery } from '~/models/directus/sdk'
+import { cache } from '~/utils/db.server'
 
 export const links: LinksFunction = () => {
   return [...ProductGridLinks()]
@@ -25,26 +25,26 @@ export const loader: LoaderFunction = async ({ request }) => {
   const directus = initDirectusCms()
   const pageData = await directus.getPages({
     filter: {
-      status: { _eq: "published" },
-      translations: { name: { _eq: "page 1" } },
+      status: { _eq: 'published' },
+      translations: { name: { _eq: 'page 1' } },
     },
-    sort: ["id"],
-    language: "en-US",
+    sort: ['id'],
+    language: 'en-US',
   })
 
-  if (cache.has("products-data")) {
-    productsData = (await cache.get("products-data")) ?? productDefault
+  if (cache.has('products-data')) {
+    productsData = (await cache.get('products-data')) ?? productDefault
   } else {
     productsData =
       (await directus.getProducts({
         filter: {
-          status: { _eq: "published" },
+          status: { _eq: 'published' },
         },
-        sort: ["-date_created"],
-        language: "en-US",
+        sort: ['-date_created'],
+        language: 'en-US',
       })) ?? productDefault
     if (productsData !== undefined) {
-      cache.set("products-data", productsData, 60 * 1) // set cache for 1 minute
+      cache.set('products-data', productsData, 60 * 1) // set cache for 1 minute
     }
   }
   return json<LoaderData>({

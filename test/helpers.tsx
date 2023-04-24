@@ -1,9 +1,9 @@
-import { RemixBrowser } from "@remix-run/react"
-import { RenderOptions, render as rtlRender } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { RemixBrowser } from '@remix-run/react'
+import { RenderOptions, render as rtlRender } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
-export { axe } from "jest-axe"
-export * from "@testing-library/react"
+export { axe } from 'jest-axe'
+export * from '@testing-library/react'
 export { userEvent }
 
 export function render(ui: React.ReactElement, options?: RenderOptions) {
@@ -18,15 +18,15 @@ export function render(ui: React.ReactElement, options?: RenderOptions) {
         hasCatchBoundary: false,
         hasErrorBoundary: false,
         hasLoader: false,
-        id: "root",
+        id: 'root',
         imports: [],
-        module: "",
-        path: "",
+        module: '',
+        path: '',
       },
     },
-    entry: { imports: [], module: "" },
-    url: "",
-    version: "",
+    entry: { imports: [], module: '' },
+    url: '',
+    version: '',
   }
   window.__remixRouteModules = { root: { default: RootComponent } }
   window.__remixContext = {

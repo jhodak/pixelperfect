@@ -7,19 +7,19 @@ import {
   Button,
   Badge,
   clsx,
-} from "@mantine/core"
-import { json, LinksFunction, LoaderFunction } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
-import { useContext, useMemo, useState } from "react"
-import { CrossFade } from "react-crossfade-simple"
-import { CartContext } from "~/context/cart"
-import { initDirectusCms } from "~/models/directus/directus.server"
-import { GetProductQuery } from "~/models/directus/sdk"
-import styles from "~/styles/productStyles.css"
-import { cache } from "~/utils/db.server"
+} from '@mantine/core'
+import { json, LinksFunction, LoaderFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { useContext, useMemo, useState } from 'react'
+import { CrossFade } from 'react-crossfade-simple'
+import { CartContext } from '~/context/cart'
+import { initDirectusCms } from '~/models/directus/directus.server'
+import { GetProductQuery } from '~/models/directus/sdk'
+import styles from '~/styles/productStyles.css'
+import { cache } from '~/utils/db.server'
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: 'stylesheet', href: styles }]
 }
 
 type LoaderData = {
@@ -36,10 +36,10 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const directus = initDirectusCms()
     product = await directus.getProduct({
       filter: {
-        status: { _eq: "published" },
+        status: { _eq: 'published' },
         id: { _eq: params.id },
       },
-      language: "en-US",
+      language: 'en-US',
     })
     cache.set(`product-${params.id}`, product, 60 * 5) // cache product for 5 minutes
   }
@@ -52,7 +52,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 export default function Products() {
   const { product } = useLoaderData<LoaderData>()
   const { cart, addToCart } = useContext(CartContext)
-  const [hover, setHover] = useState<string>("watermarked")
+  const [hover, setHover] = useState<string>('watermarked')
   const memoProductData = useMemo(() => {
     if (product) {
       const memoProducts = product
@@ -78,15 +78,15 @@ export default function Products() {
                         key={imageKey}
                         mb={16}
                         style={{
-                          margin: "0 auto 16px",
-                          width: "132px",
-                          alignContent: "center",
-                          justifyContent: "center",
-                          display: "flex",
+                          margin: '0 auto 16px',
+                          width: '132px',
+                          alignContent: 'center',
+                          justifyContent: 'center',
+                          display: 'flex',
                           border:
                             hover === imageKey
-                              ? "1px solid var(--mantine-color-gray-7)"
-                              : "none",
+                              ? '1px solid var(--mantine-color-gray-7)'
+                              : 'none',
                         }}
                         onClick={() => setHover(imageKey)}
                       >
@@ -102,13 +102,13 @@ export default function Products() {
                             ]
                           }`}
                           style={{
-                            transition: "all .5s ease",
-                            maxWidth: "100px",
-                            borderRadius: "6px",
-                            alignSelf: "center",
-                            justifySelf: "center",
-                            margin: "0 auto",
-                            opacity: hover === imageKey ? "1" : ".6",
+                            transition: 'all .5s ease',
+                            maxWidth: '100px',
+                            borderRadius: '6px',
+                            alignSelf: 'center',
+                            justifySelf: 'center',
+                            margin: '0 auto',
+                            opacity: hover === imageKey ? '1' : '.6',
                           }}
                         />
                       </Card>
@@ -121,7 +121,7 @@ export default function Products() {
                 orderMd={2}
                 orderSm={1}
                 sm={12}
-                style={{ maxHeight: "500px" }}
+                style={{ maxHeight: '500px' }}
               >
                 <CrossFade contentKey={hover}>
                   <img
@@ -133,14 +133,14 @@ export default function Products() {
                     src={`/productimages/${
                       memoProductData?.products![0]?.images![0]?.[hover]
                     }`}
-                    style={{ maxHeight: "500px", borderRadius: "8px" }}
+                    style={{ maxHeight: '500px', borderRadius: '8px' }}
                   />
                 </CrossFade>
               </Grid.Col>
             </Grid>
           </Grid.Col>
           <Grid.Col md={3} sm={12}>
-            <Text component="p" mt={0} size={20} style={{ fontWeight: "bold" }}>
+            <Text component="p" mt={0} size={20} style={{ fontWeight: 'bold' }}>
               {`$ ${memoProductData?.products![0]?.price}`}
             </Text>
             <Text component="p">Short description goes here</Text>
@@ -160,8 +160,8 @@ export default function Products() {
               className={clsx(
                 cart.some(
                   (item) => item?.id === memoProductData?.products![0]?.id
-                ) && "inCart",
-                "addToCart"
+                ) && 'inCart',
+                'addToCart'
               )}
               disabled={cart.some(
                 (item) => item?.id === memoProductData?.products![0]?.id
@@ -179,8 +179,8 @@ export default function Products() {
               {cart.some(
                 (item) => item?.id === memoProductData?.products![0]?.id
               )
-                ? "In Cart"
-                : "Add to cart"}
+                ? 'In Cart'
+                : 'Add to cart'}
             </Button>
             <Button fullWidth mb={24} mt={24} variant="filled">
               Buy now
@@ -209,7 +209,7 @@ export default function Products() {
           </>
         )}
         <Text component="p">
-          {"Long Description here -- " +
+          {'Long Description here -- ' +
             product?.products![0]?.translations![0]?.description}
         </Text>
       </Container>

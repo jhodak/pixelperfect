@@ -7,19 +7,19 @@ import {
   ActionIcon,
   useMantineColorScheme,
   Title,
-} from "@mantine/core"
-import { useDisclosure } from "@mantine/hooks"
-import { NavLink } from "@remix-run/react"
-import { IconMoon, IconSun, IconShoppingCart } from "@tabler/icons-react"
-import { useState } from "react"
-import Cart from "../cart"
-import styles from "./styles.css"
-import HyperLink from "~/components/atoms/hyperlink"
-import { GetProductsQuery } from "~/models/directus/sdk"
+} from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
+import { NavLink } from '@remix-run/react'
+import { IconMoon, IconSun, IconShoppingCart } from '@tabler/icons-react'
+import { useState } from 'react'
+import Cart from '../cart'
+import styles from './styles.css'
+import HyperLink from '~/components/atoms/hyperlink'
+import { GetProductsQuery } from '~/models/directus/sdk'
 
 /* c8 ignore start */
 export const links = () => {
-  return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: 'stylesheet', href: styles }]
 }
 /* c8 ignore end */
 
@@ -39,8 +39,8 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
 
   const activeStyle = {
-    textDecoration: "underline",
-    fontWeight: "bold",
+    textDecoration: 'underline',
+    fontWeight: 'bold',
   }
 
   const items = links.map((link) => {
@@ -84,7 +84,7 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
         <Group>
           <HyperLink bold to="/">
             <Title className="logo tangerine" order={2}>
-              {"Pixel Perfect Art Shop"}
+              {'Pixel Perfect Art Shop'}
             </Title>
           </HyperLink>
         </Group>
@@ -96,10 +96,10 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
             size="lg"
             onClick={() => toggleColorScheme()}
           >
-            {colorScheme === "dark" ? (
-              <IconSun color={"var(--mantine-color-white)"} />
+            {colorScheme === 'dark' ? (
+              <IconSun color={'var(--mantine-color-white)'} />
             ) : (
-              <IconMoon color={"var(--mantine-color-blue-8)"} />
+              <IconMoon color={'var(--mantine-color-blue-8)'} />
             )}
           </ActionIcon>
           <ActionIcon
@@ -108,7 +108,7 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
             size="lg"
             onClick={() => setCartMenuOpen(!cartMenuOpen)}
           >
-            <IconShoppingCart color={"var(--mantine-color-white)"} />
+            <IconShoppingCart color={'var(--mantine-color-white)'} />
           </ActionIcon>
         </Group>
         {mobileMenuOpened && (
@@ -117,7 +117,7 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
             className="navDrawer"
             opened={mobileMenuOpened}
             padding="lg"
-            size={"100%"}
+            size={'100%'}
             onClose={toggle}
           >
             {items}
@@ -130,7 +130,7 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
             opened={cartMenuOpen}
             padding="lg"
             position="right"
-            size={"300px"}
+            size={'300px'}
             onClose={() => setCartMenuOpen(false)}
           >
             <Cart allProducts={allProducts} aria-labelledby="cart drawer" />

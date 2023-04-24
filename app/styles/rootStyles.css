@@ -1,26 +1,26 @@
 @font-face {
-  font-family: "Tangerine";
-  src: url("/fonts/Tangerine-Regular.ttf");
+  font-family: 'Tangerine';
+  src: url('/fonts/Tangerine-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Vidaloka";
-  src: url("/fonts/Vidalaka-Regular.ttf");
+  font-family: 'Vidaloka';
+  src: url('/fonts/Vidalaka-Regular.ttf');
 }
 
 @font-face {
-  font-family: "Roboto Slab";
-  src: url("/fonts/RobotoSlab-Regular.ttf");
+  font-family: 'Roboto Slab';
+  src: url('/fonts/RobotoSlab-Regular.ttf');
 }
 
 .roboto {
-  font-family: "Roboto-Slab", serif;
+  font-family: 'Roboto-Slab', serif;
 }
 
 .tangerine {
-  font-family: "Trangerine", cursive, serif;
+  font-family: 'Trangerine', cursive, serif;
 }
 
 .vidaloka {
-  font-family: "Vidaloka", serif;
+  font-family: 'Vidaloka', serif;
 }

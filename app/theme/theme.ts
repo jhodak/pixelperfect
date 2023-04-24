@@ -1,8 +1,8 @@
-import type { MantineThemeOverride } from "@mantine/core"
+import type { MantineThemeOverride } from '@mantine/core'
 
 export const theme: MantineThemeOverride = {
-  primaryColor: "green",
+  primaryColor: 'green',
   primaryShade: 7,
-  fontFamily: "Roboto Slab, serif",
-  headings: { fontFamily: "Roboto Slab, serif", fontWeight: 700 },
+  fontFamily: 'Roboto Slab, serif',
+  headings: { fontFamily: 'Roboto Slab, serif', fontWeight: 700 },
 }

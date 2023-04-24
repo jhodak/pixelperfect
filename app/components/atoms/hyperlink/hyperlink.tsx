@@ -1,5 +1,5 @@
-import { Anchor, MantineColor, Text } from "@mantine/core"
-import { Link } from "@remix-run/react"
+import { Anchor, MantineColor, Text } from '@mantine/core'
+import { Link } from '@remix-run/react'
 
 type links = {
   to?: string
@@ -16,13 +16,13 @@ export default function HyperLink(data: links) {
     <Text
       color={data.color}
       component="span"
-      weight={data.bold ? "700" : "500"}
+      weight={data.bold ? '700' : '500'}
     >
       {data.to && (
         <Link
           className={data.className}
           prefetch="intent"
-          style={{ color: "inherit", textDecoration: "none" }}
+          style={{ color: 'inherit', textDecoration: 'none' }}
           to={data.to}
         >
           <>{data.children}</>
@@ -33,7 +33,7 @@ export default function HyperLink(data: links) {
           className={data.className}
           href={data.href}
           rel="noreferrer"
-          style={{ color: "inherit", textDecoration: "none" }}
+          style={{ color: 'inherit', textDecoration: 'none' }}
           target="_blank"
         >
           {data.children}

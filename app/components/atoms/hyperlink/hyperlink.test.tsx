@@ -1,8 +1,8 @@
-import HyperLink from "./hyperlink"
-import { axe, render, screen } from "test/helpers"
+import HyperLink from './hyperlink'
+import { axe, render, screen } from 'test/helpers'
 
-describe("HyperLink component", () => {
-  test("renders children correctly", () => {
+describe('HyperLink component', () => {
+  test('renders children correctly', () => {
     render(<HyperLink to="/example">Example Link</HyperLink>)
     const linkElement = screen.getByText(/Example Link/i)
     expect(linkElement).toBeInTheDocument()
@@ -28,8 +28,8 @@ describe("HyperLink component", () => {
   //   expect(linkElement).toHaveClass("blue")
   // })
 
-  test("applies className prop to link element", () => {
-    const testClass = "test-class"
+  test('applies className prop to link element', () => {
+    const testClass = 'test-class'
     render(
       <HyperLink className={testClass} to="/example">
         Example Link
@@ -39,27 +39,27 @@ describe("HyperLink component", () => {
     expect(linkElement).toHaveClass(testClass)
   })
 
-  test("renders internal link when to prop is passed", () => {
+  test('renders internal link when to prop is passed', () => {
     render(<HyperLink to="/example">Example Link</HyperLink>)
     const linkElement = screen.getByText(/Example Link/i)
-    expect(linkElement).toHaveAttribute("href", "/example")
+    expect(linkElement).toHaveAttribute('href', '/example')
   })
 
-  test("renders external link when href prop is passed", () => {
+  test('renders external link when href prop is passed', () => {
     render(<HyperLink href="https://example.com">Example Link</HyperLink>)
     const linkElement = screen.getByText(/Example Link/i)
-    expect(linkElement).toHaveAttribute("href", "https://example.com")
-    expect(linkElement).toHaveAttribute("rel", "noreferrer")
-    expect(linkElement).toHaveAttribute("target", "_blank")
+    expect(linkElement).toHaveAttribute('href', 'https://example.com')
+    expect(linkElement).toHaveAttribute('rel', 'noreferrer')
+    expect(linkElement).toHaveAttribute('target', '_blank')
   })
-  test("meets minimum accessible requirements", async () => {
+  test('meets minimum accessible requirements', async () => {
     const { container } = render(
       <HyperLink href="https://example.com">Example Link</HyperLink>
     )
 
     expect(await axe(container)).toHaveNoViolations()
   })
-  test("meets minimum accessible requirements", async () => {
+  test('meets minimum accessible requirements', async () => {
     const { container } = render(
       <HyperLink to="/example">Example Link</HyperLink>
     )
