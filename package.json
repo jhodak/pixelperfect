@@ -25,6 +25,9 @@
     "@babel/core": "^7.21.4",
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
+    "@graphql-codegen/cli": "^3.2.2",
+    "@graphql-codegen/client-preset": "^3.0.0",
+    "@graphql-codegen/introspection": "^3.0.1",
     "@mantine/carousel": "^6.0.5",
     "@mantine/core": "^6.0.5",
     "@mantine/hooks": "^6.0.5",
@@ -55,9 +58,6 @@
     "yargs": "^17.7.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^3.2.2",
-    "@graphql-codegen/client-preset": "^3.0.0",
-    "@graphql-codegen/introspection": "^3.0.1",
     "@remix-run/dev": "^1.15.0",
     "@remix-run/eslint-config": "^1.15.0",
     "@testing-library/dom": "^9.2.0",

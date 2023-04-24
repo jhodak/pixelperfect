@@ -4,10 +4,10 @@ import { hydrate } from 'react-dom'
 import { CartContextProvider } from './context/cart'
 
 hydrate(
-  <CartContextProvider>
-    <ClientProvider>
+  <ClientProvider>
+    <CartContextProvider>
       <RemixBrowser />
-    </ClientProvider>
-  </CartContextProvider>,
+    </CartContextProvider>
+  </ClientProvider>,
   document
 )
