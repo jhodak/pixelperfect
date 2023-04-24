@@ -77,45 +77,45 @@ const navLinks = [
     link: '/products',
     label: 'Products',
   },
-  {
-    link: '/categories',
-    label: 'Categories',
-  },
-  { link: '/contact', label: 'Contact Us' },
+  // {
+  //   link: '/categories',
+  //   label: 'Categories',
+  // },
+  // { link: '/contact', label: 'Contact Us' },
 ]
 
 type LoaderData = {
-  products: GetProductsQuery | undefined
+  products: GetProductsQuery
 }
 
 const productDefault = { products: [] }
 
-// export const loader: LoaderFunction = async ({ request }) => {
-//   let products: GetProductsQuery | undefined
-//   const directus = initDirectusCms()
+export const loader: LoaderFunction = async ({ request }) => {
+  let products: GetProductsQuery
+  const directus = initDirectusCms()
 
-//   if (cache.has("all-products-data")) {
-//     products = await cache.get("all-products-data")
-//   } else {
-//     products =
-//       (await directus.getProducts({
-//         filter: {
-//           status: { _eq: "published" },
-//         },
-//         language: "en-US",
-//       })) ?? productDefault
-//     if (products !== undefined) {
-//       cache.set("all-products-data", products, 60 * 5) // set cache for 1 minute
-//     }
-//   }
+  if (cache.has('all-products-data')) {
+    products = (await cache.get('all-products-data')) ?? productDefault
+  } else {
+    products =
+      (await directus.getProducts({
+        filter: {
+          status: { _eq: 'published' },
+        },
+        language: 'en-US',
+      })) ?? productDefault
+    if (products !== undefined) {
+      cache.set('all-products-data', products, 60 * 5) // set cache for 1 minute
+    }
+  }
 
-//   return json<LoaderData>({
-//     products,
-//   })
-// }
+  return json<LoaderData>({
+    products,
+  })
+}
 
 export default function App() {
-  // const { products } = useLoaderData<LoaderData>()
+  const { products } = useLoaderData<LoaderData>()
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: 'color-scheme',
     defaultValue: 'dark',
@@ -124,13 +124,13 @@ export default function App() {
     setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')
   }
 
-  // const memoProductsData = useMemo(() => {
-  //   if (products) {
-  //     const memoProducts = products
-  //     return memoProducts
-  //   }
-  //   return productDefault
-  // }, [products])
+  const memoProductsData = useMemo(() => {
+    if (products) {
+      const memoProducts = products
+      return memoProducts
+    }
+    return productDefault
+  }, [products])
 
   return (
     <ColorSchemeProvider
@@ -152,7 +152,7 @@ export default function App() {
             </head>
             <body className={colorScheme}>
               <HeaderMenu
-                allProducts={productDefault}
+                allProducts={memoProductsData}
                 button={false}
                 links={navLinks}
               />

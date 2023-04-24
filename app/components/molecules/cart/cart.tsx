@@ -16,12 +16,15 @@ interface productTypes {
 
 export default function Cart({ allProducts }: productTypes) {
   const { cart, removeFromCart } = useContext(CartContext)
+  console.log(cart)
+  console.log(allProducts)
   let total: number = 0
   return (
     <>
       <div>
         {allProducts?.products?.flatMap((product) => {
           const cartItem = cart?.find((item) => item.id === product.id)
+          console.log(cartItem)
           if (!cartItem) return []
           const key = `${product.id}-${cartItem.id}`
           total += cartItem.quantity * +product.price

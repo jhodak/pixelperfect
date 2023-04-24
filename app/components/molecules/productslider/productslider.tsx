@@ -30,7 +30,7 @@ export default function ProductSlider({
   })
   const { cart, addToCart } = useContext(CartContext)
   // const autoplay = useRef(Autoplay({ delay: 8000 }))
-
+  console.log(cart)
   return (
     <section className="product-slider">
       <Title align="center" id="" mb={24} mt={48} order={2}>
