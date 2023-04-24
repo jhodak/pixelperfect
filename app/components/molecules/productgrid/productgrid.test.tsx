@@ -1,49 +1,49 @@
-import { vi } from "vitest"
-import ProductGrid from "./index"
-import { axe, render, screen } from "test/helpers"
-import { CartContext } from "~/context/cart"
+import { vi } from 'vitest'
+import ProductGrid from './index'
+import { axe, render, screen } from 'test/helpers'
+import { CartContext } from '~/context/cart'
 
 const productDataMock = {
   products: [
     {
-      id: "1",
-      price: "12.34",
+      id: '1',
+      price: '12.34',
       images: [
         {
-          mockup: "mockup1.jpg",
-          watermarked: "watermark1.jpg",
+          mockup: 'mockup1.jpg',
+          watermarked: 'watermark1.jpg',
         },
       ],
       translations: [
         {
-          name: "Product 1",
+          name: 'Product 1',
         },
       ],
     },
     {
-      id: "2",
-      price: "56.78",
+      id: '2',
+      price: '56.78',
       images: [
         {
-          mockup: "mockup2.jpg",
-          watermarked: "watermark2.jpg",
+          mockup: 'mockup2.jpg',
+          watermarked: 'watermark2.jpg',
         },
       ],
       translations: [
         {
-          name: "Product 2",
+          name: 'Product 2',
         },
       ],
     },
   ],
 }
 
-describe("ProductGrid", () => {
+describe('ProductGrid', () => {
   afterEach(() => {
     vi.clearAllMocks()
   })
 
-  it("renders properly with given props", () => {
+  it('renders properly with given props', () => {
     render(
       <CartContext.Provider
         value={{ cart: [], addToCart: vi.fn(), removeFromCart: vi.fn() }}
@@ -53,14 +53,14 @@ describe("ProductGrid", () => {
     )
 
     // Check if title is rendered properly
-    const titleElement = screen.getByText("Latest Products")
+    const titleElement = screen.getByText('Latest Products')
     expect(titleElement).toBeInTheDocument()
 
     // Check if products are rendered properly with their names and prices
-    const productOneName = screen.getByText("Product 1")
-    const productOnePrice = screen.getByText("$ 12.34")
-    const productTwoName = screen.getByText("Product 2")
-    const productTwoPrice = screen.getByText("$ 56.78")
+    const productOneName = screen.getByText('Product 1')
+    const productOnePrice = screen.getByText('$ 12.34')
+    const productTwoName = screen.getByText('Product 2')
+    const productTwoPrice = screen.getByText('$ 56.78')
     expect(productOneName).toBeInTheDocument()
     expect(productOnePrice).toBeInTheDocument()
     expect(productTwoName).toBeInTheDocument()
@@ -68,23 +68,23 @@ describe("ProductGrid", () => {
 
     // Check if images are rendered properly
     const productOneImage = screen.getByAltText(
-      "Product 1 pictured framed on a white wall."
+      'Product 1 pictured framed on a white wall.'
     )
     const productTwoImage = screen.getByAltText(
-      "Product 2 pictured framed on a white wall."
+      'Product 2 pictured framed on a white wall.'
     )
-    expect(productOneImage).toHaveAttribute("src", "/productimages/mockup1.jpg")
-    expect(productTwoImage).toHaveAttribute("src", "/productimages/mockup2.jpg")
+    expect(productOneImage).toHaveAttribute('src', '/productimages/mockup1.jpg')
+    expect(productTwoImage).toHaveAttribute('src', '/productimages/mockup2.jpg')
 
     // Check if add to cart button is rendered properly
-    const addToCartButton = screen.getAllByText("Add to cart")
+    const addToCartButton = screen.getAllByText('Add to cart')
     expect(addToCartButton).toHaveLength(2)
 
     // Make sure pagination shows up
-    const pagination = screen.getAllByText("1")
+    const pagination = screen.getAllByText('1')
     expect(pagination).toHaveLength(2)
   })
-  it("meets minimum accessible requirements", async () => {
+  it('meets minimum accessible requirements', async () => {
     const { container } = render(
       <CartContext.Provider
         value={{ cart: [], addToCart: vi.fn(), removeFromCart: vi.fn() }}

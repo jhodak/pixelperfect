@@ -1,9 +1,9 @@
-import { Text, Title, Button, Group, Footer, Container } from "@mantine/core"
-import { useContext } from "react"
+import { Text, Title, Button, Group, Footer, Container } from '@mantine/core'
+import { useMatches } from '@remix-run/react'
+import { useContext } from 'react'
 // import styles from "./styles.css"
-import { CartContext } from "~/context/cart"
-import { GetProductsQuery } from "~/models/directus/sdk"
-import { useMatches } from "@remix-run/react"
+import { CartContext } from '~/context/cart'
+import { GetProductsQuery } from '~/models/directus/sdk'
 
 // /* c8 ignore start */
 // export const links = () => {
@@ -39,16 +39,16 @@ export default function Checkout() {
               <Group key={key} align="center" mb={24} position="apart">
                 <div
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}
                 >
                   <img
                     alt={`thumbnail of ${product?.translations![0]?.name}`}
                     height="60"
                     src={`/productimages/${product.images[0].watermarked}`}
-                    style={{ marginRight: "24px" }}
+                    style={{ marginRight: '24px' }}
                     width="40"
                   />
                   <div>

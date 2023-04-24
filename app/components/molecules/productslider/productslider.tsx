@@ -1,17 +1,17 @@
-import { Carousel } from "@mantine/carousel"
-import { Text, Card, Title, Button, clsx } from "@mantine/core"
+import { Carousel } from '@mantine/carousel'
+import { Text, Card, Title, Button, clsx } from '@mantine/core'
 // import Autoplay from "embla-carousel-autoplay"
-import { useMediaQuery } from "@mantine/hooks"
-import { Link } from "@remix-run/react"
-import { useContext, useState } from "react"
-import styles from "./styles.css"
-import { CartContext } from "~/context/cart"
-import { GetLatestProductsQuery } from "~/models/directus/sdk"
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react"
+import { useMediaQuery } from '@mantine/hooks'
+import { Link } from '@remix-run/react'
+import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
+import { useContext, useState } from 'react'
+import styles from './styles.css'
+import { CartContext } from '~/context/cart'
+import { GetLatestProductsQuery } from '~/models/directus/sdk'
 
 /* c8 ignore start */
 export const links = () => {
-  return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: 'stylesheet', href: styles }]
 }
 /* c8 ignore end */
 
@@ -25,7 +25,7 @@ export default function ProductSlider({
   title,
 }: productSliderTypes) {
   const [hover, setHover] = useState<number>(-1)
-  const isTablet = useMediaQuery("(max-width: 769px)", false, {
+  const isTablet = useMediaQuery('(max-width: 769px)', false, {
     getInitialValueInEffect: false,
   })
   const { cart, addToCart } = useContext(CartContext)
@@ -33,7 +33,7 @@ export default function ProductSlider({
 
   return (
     <section className="product-slider">
-      <Title align="center" mb={24} mt={48} order={2} id="">
+      <Title align="center" id="" mb={24} mt={48} order={2}>
         {title}
       </Title>
       <Carousel
@@ -45,17 +45,17 @@ export default function ProductSlider({
         // onMouseEnter={autoplay.current.stop}
         // onMouseLeave={autoplay.current.reset}
         mb={42}
+        nextControlIcon={
+          <IconArrowRight aria-label="next set of products" size={16} />
+        }
+        previousControlIcon={
+          <IconArrowLeft aria-label="previous set of products" size={16} />
+        }
         role="group"
         slideGap="xl"
         slideSize="300px"
-        slidesToScroll={isTablet ? "auto" : 3}
+        slidesToScroll={isTablet ? 'auto' : 3}
         speed={10}
-        nextControlIcon={
-          <IconArrowRight size={16} aria-label="next set of products" />
-        }
-        previousControlIcon={
-          <IconArrowLeft size={16} aria-label="previous set of products" />
-        }
       >
         {productsData?.products?.map((product, index) => {
           return (
@@ -75,7 +75,7 @@ export default function ProductSlider({
                   }`}
                 >
                   <Title align="center" mb={16} order={3}>
-                    {product?.translations![0]?.name ?? "Product Name"}
+                    {product?.translations![0]?.name ?? 'Product Name'}
                   </Title>
 
                   <div className="crossFade">
@@ -93,7 +93,7 @@ export default function ProductSlider({
                       className="top"
                       src={`/productimages/${product.images[0].watermarked}`}
                       style={{
-                        opacity: `${hover === index ? "0" : "1"}`,
+                        opacity: `${hover === index ? '0' : '1'}`,
                       }}
                     />
                   </div>
@@ -102,8 +102,8 @@ export default function ProductSlider({
                 <Button
                   fullWidth
                   className={clsx(
-                    cart.some((item) => item?.id === product.id) && "inCart",
-                    "addToCart"
+                    cart.some((item) => item?.id === product.id) && 'inCart',
+                    'addToCart'
                   )}
                   disabled={cart.some((item) => item?.id === product.id)}
                   mt={16}
@@ -111,8 +111,8 @@ export default function ProductSlider({
                   onClick={() => addToCart(product.id, 1)}
                 >
                   {cart.some((item) => item?.id === product.id)
-                    ? "In Cart"
-                    : "Add to cart"}
+                    ? 'In Cart'
+                    : 'Add to cart'}
                 </Button>
               </Card>
             </Carousel.Slide>

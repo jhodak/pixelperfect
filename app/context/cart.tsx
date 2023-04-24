@@ -1,6 +1,6 @@
-import { useBeforeUnload } from "@remix-run/react"
-import React, { useContext, useEffect, useMemo, useState } from "react"
-import { findIndex } from "~/utils/utils"
+import { useBeforeUnload } from '@remix-run/react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { findIndex } from '~/utils/utils'
 
 export interface CartItem {
   quantity: number
@@ -26,7 +26,7 @@ export function useCart() {
 
   if (!context) {
     throw new Error(
-      "Cart must have a provider enabled to use.  Please add the provider higher in the tree."
+      'Cart must have a provider enabled to use.  Please add the provider higher in the tree.'
     )
   }
 
@@ -39,14 +39,14 @@ const CartContextProvider = ({ children }: { children: React.ReactNode }) => {
   useBeforeUnload(
     React.useCallback(() => {
       if (cart.length !== 0) {
-        localStorage?.setItem("cart", JSON.stringify(cart))
+        localStorage?.setItem('cart', JSON.stringify(cart))
       }
     }, [cart])
   )
 
   useEffect(() => {
-    if (cart.length === 0 && localStorage?.getItem("cart")) {
-      let storedCart = JSON.parse(localStorage?.getItem("cart")!)
+    if (cart.length === 0 && localStorage?.getItem('cart')) {
+      let storedCart = JSON.parse(localStorage?.getItem('cart')!)
       setCart(storedCart)
     }
   }, [])
@@ -56,11 +56,11 @@ const CartContextProvider = ({ children }: { children: React.ReactNode }) => {
     if (existingItemIndex !== -1) {
       const updatedCart = [...cart]
       updatedCart[existingItemIndex].quantity += quantity
-      localStorage?.setItem("cart", JSON.stringify(updatedCart))
+      localStorage?.setItem('cart', JSON.stringify(updatedCart))
       setCart(updatedCart)
     } else {
       const newCart = [...cart, { id, quantity }]
-      localStorage?.setItem("cart", JSON.stringify(newCart))
+      localStorage?.setItem('cart', JSON.stringify(newCart))
       setCart(newCart)
     }
   }
@@ -76,7 +76,7 @@ const CartContextProvider = ({ children }: { children: React.ReactNode }) => {
         return item
       })
     }
-    localStorage?.setItem("cart", JSON.stringify(updatedCart))
+    localStorage?.setItem('cart', JSON.stringify(updatedCart))
     setCart(updatedCart)
   }
 

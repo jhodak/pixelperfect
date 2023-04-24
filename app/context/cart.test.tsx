@@ -1,14 +1,14 @@
-import React from "react"
-import { CartContextProvider, useCart } from "./cart"
-import { act, renderHook } from "test/helpers"
-import "@testing-library/jest-dom/extend-expect"
+import React from 'react'
+import { CartContextProvider, useCart } from './cart'
+import { act, renderHook } from 'test/helpers'
+import '@testing-library/jest-dom/extend-expect'
 
-describe("CartContext", () => {
+describe('CartContext', () => {
   afterEach(() => {
     window.localStorage.clear()
   })
 
-  it("should add item to cart", () => {
+  it('should add item to cart', () => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <CartContextProvider>{children}</CartContextProvider>
     )
@@ -16,7 +16,7 @@ describe("CartContext", () => {
     const { result } = renderHook(() => useCart(), { wrapper: Wrapper })
 
     const item = {
-      id: "item1",
+      id: 'item1',
       quantity: 1,
     }
 
@@ -31,24 +31,24 @@ describe("CartContext", () => {
     expect(result.current.cart[0]).toEqual(item)
   })
 
-  it("added items appear in localstorage correctly", () => {
+  it('added items appear in localstorage correctly', () => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <CartContextProvider>{children}</CartContextProvider>
     )
 
     const { result } = renderHook(() => useCart(), { wrapper: Wrapper })
     const item = {
-      id: "item1",
+      id: 'item1',
       quantity: 1,
     }
     act(() => {
       result.current.addToCart(item.id, item.quantity)
     })
 
-    expect(window.localStorage.getItem("cart")).toEqual(JSON.stringify([item]))
+    expect(window.localStorage.getItem('cart')).toEqual(JSON.stringify([item]))
   })
 
-  it("adding item a second time should increase quantity", () => {
+  it('adding item a second time should increase quantity', () => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <CartContextProvider>{children}</CartContextProvider>
     )
@@ -56,7 +56,7 @@ describe("CartContext", () => {
     const { result } = renderHook(() => useCart(), { wrapper: Wrapper })
 
     const item = {
-      id: "item1",
+      id: 'item1',
       quantity: 1,
     }
 
@@ -71,18 +71,18 @@ describe("CartContext", () => {
     expect(result.current.cart[0].quantity).toEqual(2)
   })
 
-  it("adding item a second time also updated localstorage", () => {
+  it('adding item a second time also updated localstorage', () => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <CartContextProvider>{children}</CartContextProvider>
     )
     const { result } = renderHook(() => useCart(), { wrapper: Wrapper })
     const item = {
-      id: "item1",
+      id: 'item1',
       quantity: 1,
     }
 
     const itemAddedTwice = {
-      id: "item1",
+      id: 'item1',
       quantity: 2,
     }
     act(() => {
@@ -92,12 +92,12 @@ describe("CartContext", () => {
       result.current.addToCart(item.id, item.quantity)
     })
 
-    expect(window.localStorage.getItem("cart")).toEqual(
+    expect(window.localStorage.getItem('cart')).toEqual(
       JSON.stringify([itemAddedTwice])
     )
   })
 
-  it("should be able to add multiple items to cart", () => {
+  it('should be able to add multiple items to cart', () => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <CartContextProvider>{children}</CartContextProvider>
     )
@@ -105,11 +105,11 @@ describe("CartContext", () => {
     const { result } = renderHook(() => useCart(), { wrapper: Wrapper })
 
     const item1 = {
-      id: "item1",
+      id: 'item1',
       quantity: 1,
     }
     const item2 = {
-      id: "item2",
+      id: 'item2',
       quantity: 2,
     }
 
@@ -129,7 +129,7 @@ describe("CartContext", () => {
     expect(result.current.cart[1]).toEqual(item2)
   })
 
-  it("should remove item from cart", () => {
+  it('should remove item from cart', () => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <CartContextProvider>{children}</CartContextProvider>
     )
@@ -137,7 +137,7 @@ describe("CartContext", () => {
     const { result } = renderHook(() => useCart(), { wrapper: Wrapper })
 
     const item = {
-      id: "item1",
+      id: 'item1',
       quantity: 2,
     }
 
@@ -160,7 +160,7 @@ describe("CartContext", () => {
     expect(result.current.cart.length).toBe(0)
   })
 
-  it("should be able to remove a specific item from cart", () => {
+  it('should be able to remove a specific item from cart', () => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <CartContextProvider>{children}</CartContextProvider>
     )
@@ -168,15 +168,15 @@ describe("CartContext", () => {
     const { result } = renderHook(() => useCart(), { wrapper: Wrapper })
 
     const item1 = {
-      id: "item1",
+      id: 'item1',
       quantity: 1,
     }
     const item2 = {
-      id: "item2",
+      id: 'item2',
       quantity: 2,
     }
     const item2OnceRemove = {
-      id: "item2",
+      id: 'item2',
       quantity: 1,
     }
 
@@ -207,7 +207,7 @@ describe("CartContext", () => {
     expect(result.current.cart[0]).toEqual(item1)
   })
 
-  it("fully testing localstorage add to cart then remove", () => {
+  it('fully testing localstorage add to cart then remove', () => {
     const Wrapper = ({ children }: { children: React.ReactNode }) => (
       <CartContextProvider>{children}</CartContextProvider>
     )
@@ -215,22 +215,22 @@ describe("CartContext", () => {
     const { result } = renderHook(() => useCart(), { wrapper: Wrapper })
 
     const item = {
-      id: "item1",
+      id: 'item1',
       quantity: 2,
     }
-    const itemAfterRemoveFromCart = { id: "item1", quantity: 1 }
+    const itemAfterRemoveFromCart = { id: 'item1', quantity: 1 }
 
     // add item with quantity 2 to cart
     act(() => {
       result.current.addToCart(item.id, item.quantity)
     })
-    expect(window.localStorage.getItem("cart")).toEqual(JSON.stringify([item]))
+    expect(window.localStorage.getItem('cart')).toEqual(JSON.stringify([item]))
 
     // remove one from the quantity
     act(() => {
       result.current.removeFromCart(item.id)
     })
-    expect(window.localStorage.getItem("cart")).toEqual(
+    expect(window.localStorage.getItem('cart')).toEqual(
       JSON.stringify([itemAfterRemoveFromCart])
     )
 
@@ -238,6 +238,6 @@ describe("CartContext", () => {
       result.current.removeFromCart(item.id)
     })
     // remove last item from cart
-    expect(window.localStorage.getItem("cart")).toEqual(JSON.stringify([]))
+    expect(window.localStorage.getItem('cart')).toEqual(JSON.stringify([]))
   })
 })

@@ -1,18 +1,18 @@
-import { ColorSchemeProvider } from "@mantine/core"
-import { vi } from "vitest"
-import HeaderMenu from "./header"
-import { render, screen, fireEvent, userEvent } from "test/helpers"
-import { CartContextProvider } from "~/context/cart"
+import { ColorSchemeProvider } from '@mantine/core'
+import { vi } from 'vitest'
+import HeaderMenu from './header'
+import { render, screen, fireEvent, userEvent } from 'test/helpers'
+import { CartContextProvider } from '~/context/cart'
 
-describe("HeaderMenu", () => {
+describe('HeaderMenu', () => {
   const allProducts = { products: [] } //dummy data
   const testLinks = [
-    { link: "/", label: "Home" },
-    { link: "/about", label: "About" },
-    { link: "/contact", label: "Contact" },
+    { link: '/', label: 'Home' },
+    { link: '/about', label: 'About' },
+    { link: '/contact', label: 'Contact' },
   ]
 
-  it("renders the logo", () => {
+  it('renders the logo', () => {
     render(
       <ColorSchemeProvider colorScheme="dark" toggleColorScheme={vi.fn()}>
         <CartContextProvider>

@@ -1,9 +1,9 @@
-import { Footer, Text, Grid, Container } from "@mantine/core"
-import styles from "./styles.css"
+import { Footer, Text, Grid, Container } from '@mantine/core'
+import styles from './styles.css'
 
 /* c8 ignore start */
 export const links = () => {
-  return [{ rel: "stylesheet", href: styles }]
+  return [{ rel: 'stylesheet', href: styles }]
 }
 /* c8 ignore end */
 
