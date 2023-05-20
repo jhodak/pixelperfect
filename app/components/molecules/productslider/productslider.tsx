@@ -1,7 +1,5 @@
 import { Carousel } from '@mantine/carousel'
 import { Text, Card, Title, Button, clsx } from '@mantine/core'
-// import Autoplay from "embla-carousel-autoplay"
-import { useMediaQuery } from '@mantine/hooks'
 import { Link } from '@remix-run/react'
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
 import { useContext, useState } from 'react'
@@ -25,12 +23,7 @@ export default function ProductSlider({
   title,
 }: productSliderTypes) {
   const [hover, setHover] = useState<number>(-1)
-  const isTablet = useMediaQuery('(max-width: 769px)', false, {
-    getInitialValueInEffect: false,
-  })
   const { cart, addToCart } = useContext(CartContext)
-  // const autoplay = useRef(Autoplay({ delay: 8000 }))
-  console.log(cart)
   return (
     <section className="product-slider">
       <Title align="center" id="" mb={24} mt={48} order={2}>
@@ -41,9 +34,6 @@ export default function ProductSlider({
         withIndicators
         align="start"
         aria-label="carousel"
-        // plugins={isTablet ? [] : [autoplay.current]}
-        // onMouseEnter={autoplay.current.stop}
-        // onMouseLeave={autoplay.current.reset}
         mb={42}
         nextControlIcon={
           <IconArrowRight aria-label="next set of products" size={16} />
@@ -54,7 +44,7 @@ export default function ProductSlider({
         role="group"
         slideGap="xl"
         slideSize="300px"
-        slidesToScroll={isTablet ? 'auto' : 3}
+        slidesToScroll="auto"
         speed={10}
       >
         {productsData?.products?.map((product, index) => {

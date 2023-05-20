@@ -8,7 +8,7 @@ import {
   useMantineColorScheme,
   Title,
 } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { NavLink } from '@remix-run/react'
 import { IconMoon, IconSun, IconShoppingCart } from '@tabler/icons-react'
 import { useState } from 'react'
@@ -37,6 +37,9 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
   const [mobileMenuOpened, { toggle }] = useDisclosure(false)
   const [cartMenuOpen, setCartMenuOpen] = useState<boolean>(false)
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
+  const isMobile = useMediaQuery('(max-width: 48em)', true, {
+    getInitialValueInEffect: false,
+  })
 
   const activeStyle = {
     textDecoration: 'underline',
@@ -89,7 +92,7 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
           </HyperLink>
         </Group>
         <Group className="links" spacing={16}>
-          {items}
+          {!isMobile && items}
           <ActionIcon
             aria-label="color scheme toggle"
             className="colorToggle"
@@ -99,7 +102,7 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
             {colorScheme === 'dark' ? (
               <IconSun color={'var(--mantine-color-white)'} />
             ) : (
-              <IconMoon color={'var(--mantine-color-blue-8)'} />
+              <IconMoon color={'var(--mantine-color-green-8)'} />
             )}
           </ActionIcon>
           <ActionIcon
@@ -108,7 +111,11 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
             size="lg"
             onClick={() => setCartMenuOpen(!cartMenuOpen)}
           >
-            <IconShoppingCart color={'var(--mantine-color-white)'} />
+            {colorScheme === 'dark' ? (
+              <IconShoppingCart color={'var(--mantine-color-white)'} />
+            ) : (
+              <IconShoppingCart color={'var(--mantine-color-green-8)'} />
+            )}
           </ActionIcon>
         </Group>
         {mobileMenuOpened && (
@@ -119,6 +126,16 @@ export default function HeaderMenu({ links, allProducts }: HeaderMenuProps) {
             padding="lg"
             size={'100%'}
             onClose={toggle}
+            transitionProps={{
+              transition: 'rotate-left',
+              duration: 150,
+              timingFunction: 'linear',
+            }}
+            // transitionProps={{
+            //   transition: 'slide-right',
+            //   duration: 20000,
+            //   timingFunction: 'linear',
+            // }}
           >
             {items}
           </Drawer>

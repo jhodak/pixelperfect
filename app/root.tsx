@@ -9,6 +9,7 @@ import { StylesPlaceholder } from '@mantine/remix'
 import {
   LinksFunction,
   LoaderFunction,
+  MetaFunction,
   V2_MetaFunction,
   json,
 } from '@remix-run/node'
@@ -60,13 +61,9 @@ export const links: LinksFunction = () => {
 
 export const meta: V2_MetaFunction = () => {
   return [
-    { charset: 'utf-8' },
     { title: 'Pixel Perfect Art Shop' },
-    {
-      description:
-        'High quality AI art for your home or office.  Enjoy inexpensive art that can be printed or framed to fit your personal tastes.',
-    },
-    { viewport: 'width=device-width,initial-scale=1' },
+    { charSet: 'utf-8' },
+    { name: 'viewport', content: 'width=device-width,initial-scale=1' },
   ]
 }
 
