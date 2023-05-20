@@ -24,3 +24,17 @@
 .vidaloka {
   font-family: 'Vidaloka', serif;
 }
+
+.dark *:focus-visible {
+  outline-offset: 0.125rem;
+  outline: 0.125rem solid var(--mantine-color-green-8);
+  display: inherit;
+  border-radius: var(--mantine-radius-md);
+}
+
+.light *:focus-visible {
+  outline-offset: 0.125rem;
+  outline: 0.125rem solid var(--mantine-color-dark-8) !important;
+  display: inherit;
+  border-radius: var(--mantine-radius-md);
+}

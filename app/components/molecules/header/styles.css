@@ -49,9 +49,6 @@ body.dark .header .link:hover {
   .header {
     margin-bottom: 2rem;
   }
-  .header .links {
-    display: none;
-  }
   .navDrawer .mobileLink {
     display: block;
     line-height: 1;

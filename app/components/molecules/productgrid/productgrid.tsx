@@ -9,7 +9,7 @@ import {
   Group,
 } from '@mantine/core'
 import { Link } from '@remix-run/react'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import styles from './styles.css'
 import { CartContext } from '~/context/cart'
 import { GetLatestProductsQuery } from '~/models/directus/sdk'
@@ -30,6 +30,10 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(8)
   const { cart, addToCart } = useContext(CartContext)
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [page])
 
   return (
     <section className="product-grid">
@@ -54,7 +58,9 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
             return (
               <Grid.Col
                 key={`${index}-${product?.translations![0]?.name}`}
-                span={3}
+                xs={12}
+                sm={6}
+                md={3}
               >
                 <Card
                   className="product-slider-card"

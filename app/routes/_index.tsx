@@ -1,26 +1,35 @@
-import { Container, Title } from "@mantine/core"
-import { useMediaQuery } from "@mantine/hooks"
-import { json, LoaderFunction, V2_MetaFunction } from "@remix-run/node"
-import { useLoaderData } from "@remix-run/react"
-import { useMemo } from "react"
+import { Container, Title } from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
+import { json, LoaderFunction, V2_MetaFunction } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
+import { useMemo } from 'react'
 import ProductSlider, {
   links as sliderLinks,
-} from "~/components/molecules/productslider"
-import { initDirectusCms } from "~/models/directus/directus.server"
+} from '~/components/molecules/productslider'
+import { initDirectusCms } from '~/models/directus/directus.server'
 import {
   GetPagesQuery,
   GetLatestProductsQuery,
   GetProductsQuery,
-} from "~/models/directus/sdk"
-import styles from "~/styles/indexStyles.css"
-import { cache } from "~/utils/db.server"
+} from '~/models/directus/sdk'
+import styles from '~/styles/indexStyles.css'
+import { cache } from '~/utils/db.server'
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "Pixel Perfect Art Shop" }]
+  return [
+    { title: 'Pixel Perfect Art Shop' },
+    { charSet: 'utf-8' },
+    { name: 'viewport', content: 'width=device-width,initial-scale=1' },
+    {
+      name: 'description',
+      content:
+        'High quality AI art for your home or office.  Enjoy inexpensive art that can be printed or framed to fit your personal tastes.',
+    },
+  ]
 }
 
 export const links = () => {
-  return [...sliderLinks(), { rel: "stylesheet", href: styles }]
+  return [...sliderLinks(), { rel: 'stylesheet', href: styles }]
 }
 
 type LoaderData = {
@@ -37,60 +46,60 @@ export const loader: LoaderFunction = async ({ request }) => {
   let latestProductsData: GetLatestProductsQuery
   let flowers: GetProductsQuery
   const directus = initDirectusCms()
-  if (cache.has("page-data-homepage")) {
-    pageData = (await cache.get("page-data-homepage")) ?? pageDefault
+  if (cache.has('page-data-homepage')) {
+    pageData = (await cache.get('page-data-homepage')) ?? pageDefault
   } else {
     pageData =
       (await directus.getPages({
         filter: {
-          status: { _eq: "published" },
-          translations: { name: { _eq: "Home" } },
+          status: { _eq: 'published' },
+          translations: { name: { _eq: 'Home' } },
         },
-        sort: ["id"],
-        language: "en-US",
+        sort: ['id'],
+        language: 'en-US',
       })) ?? pageDefault
-    cache.set("page-data-homepage", pageData, 60 * 1) // set cache for 1 minute
+    cache.set('page-data-homepage', pageData, 60 * 1) // set cache for 1 minute
   }
 
-  if (cache.has("latest-products-data-homepage")) {
+  if (cache.has('latest-products-data-homepage')) {
     latestProductsData =
-      (await cache.get("latest-products-data-homepage")) ?? productDefault
+      (await cache.get('latest-products-data-homepage')) ?? productDefault
   } else {
     latestProductsData =
       (await directus.getLatestProducts({
         filter: {
-          status: { _eq: "published" },
+          status: { _eq: 'published' },
         },
         limit: 12,
-        sort: ["-date_created"],
-        language: "en-US",
+        sort: ['-date_created'],
+        language: 'en-US',
       })) ?? productDefault
     if (latestProductsData !== undefined) {
-      cache.set("latest-products-data-homepage", latestProductsData, 60 * 1) // set cache for 1 minute
+      cache.set('latest-products-data-homepage', latestProductsData, 60 * 1) // set cache for 1 minute
     }
   }
 
-  if (cache.has("flowers-products-data")) {
-    flowers = (await cache.get("flowers-products-data")) ?? productDefault
+  if (cache.has('flowers-products-data')) {
+    flowers = (await cache.get('flowers-products-data')) ?? productDefault
   } else {
     flowers =
       (await directus.getProducts({
         filter: {
-          status: { _eq: "published" },
+          status: { _eq: 'published' },
           categories: {
             categories_id: {
               category: {
-                _contains: "flowers",
+                _contains: 'flowers',
               },
             },
           },
         },
         limit: 8,
-        sort: ["-date_created"],
-        language: "en-US",
+        sort: ['-date_created'],
+        language: 'en-US',
       })) ?? productDefault
     if (flowers !== undefined) {
-      cache.set("flowers-products-data", flowers, 60 * 1) // set cache for 1 minute
+      cache.set('flowers-products-data', flowers, 60 * 1) // set cache for 1 minute
     }
   }
 
@@ -104,7 +113,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Index() {
   const { pageData, latestProducts, flowers } = useLoaderData<LoaderData>()
 
-  const isTablet = useMediaQuery("(max-width: 769px)", false, {
+  const isTablet = useMediaQuery('(max-width: 769px)', false, {
     getInitialValueInEffect: false,
   })
   const memoPageData = useMemo(() => {
@@ -132,18 +141,18 @@ export default function Index() {
   return (
     <>
       <div
-        className={"index-banner"}
+        className={'index-banner'}
         style={{
-          marginTop: isTablet ? "-2rem" : "-6rem",
+          marginTop: isTablet ? '-2rem' : '-6rem',
         }}
       >
         <Title
           align="center"
           className="tangerine"
-          color={"var(--mantine-color-white)"}
+          color={'var(--mantine-color-white)'}
           opacity={1}
           order={1}
-          pt={"24px"}
+          pt={'24px'}
           size={48}
         >
           Pixel Perfect Art Shop
