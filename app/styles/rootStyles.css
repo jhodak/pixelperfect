@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'Tangerine';
+  src: url('/fonts/Tangerine-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Vidaloka';
+  src: url('/fonts/Vidalaka-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto Slab';
+  src: url('/fonts/RobotoSlab-Regular.ttf');
+}
+
+.roboto {
+  font-family: 'Roboto-Slab', serif;
+}
+
+.tangerine {
+  font-family: 'Trangerine', cursive, serif;
+}
+
+.vidaloka {
+  font-family: 'Vidaloka', serif;
+}
+
+.dark *:focus-visible {
+  outline-offset: 0.125rem;
+  outline: 0.125rem solid var(--mantine-color-green-8);
+  display: inherit;
+  border-radius: var(--mantine-radius-md);
+}
+
+.light *:focus-visible {
+  outline-offset: 0.125rem;
+  outline: 0.125rem solid var(--mantine-color-dark-8) !important;
+  display: inherit;
+  border-radius: var(--mantine-radius-md);
+}

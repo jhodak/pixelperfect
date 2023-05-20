@@ -1,4 +1,4 @@
-import type { getClientEnv } from "./environment.server"
+import type { getClientEnv } from './environment.server'
 
 function getRequiredEnvVarFromObj(
   obj: Record<string, string | undefined>,
