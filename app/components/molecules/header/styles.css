@@ -71,3 +71,9 @@ body.dark .header .link:hover {
     display: none;
   }
 }
+
+@media only screen and (max-width: var(--mantine-breakpoints-sm)) {
+  .header a h2.logo {
+    font-size: 20px;
+  }
+}
