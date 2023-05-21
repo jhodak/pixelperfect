@@ -35,4 +35,7 @@
     width: unset;
     max-width: calc(100%);
   }
+  .image-area {
+    max-width: 100%;
+  }
 }
