@@ -17,6 +17,7 @@ import { initDirectusCms } from '~/models/directus/directus.server'
 import { GetProductQuery } from '~/models/directus/sdk'
 import styles from '~/styles/productStyles.css'
 import { cache } from '~/utils/db.server'
+import process from 'process'
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: styles }]
@@ -60,6 +61,8 @@ export default function Products() {
     }
   }, [product])
 
+  const isDev = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
+
   return (
     <div className="product-page">
       <Container size={1280}>
@@ -78,24 +81,17 @@ export default function Products() {
                 style={{ maxHeight: '500px' }}
               >
                 <CrossFade contentKey={hover}>
-                  <object
-                    data={`/productimages/${memoProductData?.products![0]?.images![0]?.[
+                  <img
+                    src={`/productimages/${memoProductData?.products![0]?.images![0]?.[
                       hover
-                    ].replace('.jpg', '')}-500.jpg`}
-                    type="image/jpeg"
-                  >
-                    <img
-                      src={`/productimages/${
-                        memoProductData?.products![0]?.images![0]?.[hover]
-                      }`}
-                      key={hover}
-                      alt={`${
-                        memoProductData?.products![0]?.translations![0]?.name
-                      } - product display area`}
-                      className="image-area"
-                      style={{ maxHeight: '500px', borderRadius: '8px' }}
-                    />
-                  </object>
+                    ].replace(isDev ? `'', ''` : `'.jpg', '-500.jpg'`)}`}
+                    key={hover}
+                    alt={`${
+                      memoProductData?.products![0]?.translations![0]?.name
+                    } - product display area`}
+                    className="image-area"
+                    style={{ maxHeight: '500px', borderRadius: '8px' }}
+                  />
                 </CrossFade>
               </Grid.Col>
 
@@ -127,11 +123,15 @@ export default function Products() {
                         }}
                         onClick={() => setHover(imageKey)}
                       >
-                        <object
-                          data={`/productimages/${memoProductData?.products![0]?.images![0]?.[
+                        <img
+                          alt={`${
+                            memoProductData?.products![0]?.translations![0]
+                              ?.name
+                          } - ${imageKey}`}
+                          className="image-tiles"
+                          src={`/productimages/${memoProductData?.products![0]?.images![0]?.[
                             imageKey
-                          ].replace('.jpg', '')}-200.jpg`}
-                          type="image/jpeg"
+                          ].replace(isDev ? `'', ''` : `'.jpg', '-200.jpg'`)}`}
                           style={{
                             transition: 'all .5s ease',
                             borderRadius: '6px',
@@ -140,28 +140,7 @@ export default function Products() {
                             margin: '0 auto',
                             opacity: hover === imageKey ? '1' : '.6',
                           }}
-                        >
-                          <img
-                            alt={`${
-                              memoProductData?.products![0]?.translations![0]
-                                ?.name
-                            } - ${imageKey}`}
-                            className="image-tiles"
-                            src={`/productimages/${
-                              memoProductData?.products![0]?.images![0]?.[
-                                imageKey
-                              ]
-                            }`}
-                            style={{
-                              transition: 'all .5s ease',
-                              borderRadius: '6px',
-                              alignSelf: 'center',
-                              justifySelf: 'center',
-                              margin: '0 auto',
-                              opacity: hover === imageKey ? '1' : '.6',
-                            }}
-                          />
-                        </object>
+                        />
                       </Card>
                     )
                   })}
