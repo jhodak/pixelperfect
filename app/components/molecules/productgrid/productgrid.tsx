@@ -45,6 +45,7 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
         boundaries={1}
         total={Math.ceil(productsData?.products?.length / limit)}
         onChange={(page) => setPage(page)}
+        value={page}
       >
         <Group align="center" mb={24} mt={24} position="center" spacing={5}>
           <Pagination.Previous aria-label="previous product page" />
@@ -136,6 +137,7 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
         boundaries={1}
         total={Math.ceil(productsData?.products?.length / limit)}
         onChange={(page) => setPage(page)}
+        value={page}
       >
         <Group align="center" mt={48} position="center" spacing={5}>
           <Pagination.Previous aria-label="previous product page" />
