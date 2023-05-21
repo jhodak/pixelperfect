@@ -74,7 +74,7 @@ export default function ProductSlider({
                         product?.translations![0]?.name
                       } - showing framed version on a white wall`}
                       className="bottom"
-                      src={`https://pixelperfectartshop.com/productimages/productimages/${product.images[0].mockup.replace(
+                      src={`https://pixelperfectartshop.com/productimages/${product.images[0].mockup.replace(
                         '.jpg',
                         '-200.jpg'
                       )}`}
