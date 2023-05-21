@@ -33,6 +33,7 @@ import { GetProductsQuery } from './models/directus/sdk'
 import { cache } from './utils/db.server'
 import styles from '~/styles/rootStyles.css'
 import { theme } from '~/theme/theme'
+import { EnvContextProvider } from './context/env'
 
 export const links: LinksFunction = () => {
   return [
@@ -141,27 +142,29 @@ export default function App() {
         theme={{ colorScheme, ...theme }}
       >
         <CartContextProvider>
-          <html lang="en">
-            <head>
-              <StylesPlaceholder />
-              <Meta />
-              <Links />
-            </head>
-            <body className={colorScheme}>
-              <HeaderMenu
-                allProducts={memoProductsData}
-                button={false}
-                links={navLinks}
-              />
-              <main>
-                <Outlet />
-              </main>
-              <ScrollRestoration />
-              <Scripts />
-              <LiveReload />
-              <FooterLayout />
-            </body>
-          </html>
+          <EnvContextProvider>
+            <html lang="en">
+              <head>
+                <StylesPlaceholder />
+                <Meta />
+                <Links />
+              </head>
+              <body className={colorScheme}>
+                <HeaderMenu
+                  allProducts={memoProductsData}
+                  button={false}
+                  links={navLinks}
+                />
+                <main>
+                  <Outlet />
+                </main>
+                <ScrollRestoration />
+                <Scripts />
+                <LiveReload />
+                <FooterLayout />
+              </body>
+            </html>
+          </EnvContextProvider>
         </CartContextProvider>
       </MantineProvider>
     </ColorSchemeProvider>
