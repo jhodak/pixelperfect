@@ -83,7 +83,7 @@ export default function Products() {
                     alt={`${
                       memoProductData?.products![0]?.translations![0]?.name
                     } - product display area`}
-                    className="image-tiles"
+                    className="image-area"
                     src={`/productimages/${
                       memoProductData?.products![0]?.images![0]?.[hover]
                     }`}
