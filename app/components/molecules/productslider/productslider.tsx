@@ -81,7 +81,10 @@ export default function ProductSlider({
                         product?.translations![0]?.name
                       } - watermarked version`}
                       className="top"
-                      src={`/productimages/${product.images[0].watermarked}`}
+                      src={`https://pixelperfectartshop.com/productimages/${product.images[0].watermarked.replace(
+                        '.jpg',
+                        '-200.jpg'
+                      )}`}
                       style={{
                         opacity: `${hover === index ? '0' : '1'}`,
                       }}

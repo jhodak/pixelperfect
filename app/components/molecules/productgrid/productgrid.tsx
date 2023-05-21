@@ -83,14 +83,20 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
                           product?.translations![0]?.name
                         } pictured framed on a white wall.`}
                         className="bottom"
-                        src={`/productimages/${product.images[0].mockup}`}
+                        src={`https://pixelperfectartshop.com/productimages/${product.images[0].mockup.replace(
+                          '.jpg',
+                          '-200.jpg'
+                        )}`}
                       />
                       <img
                         alt={`watermarked version of ${
                           product?.translations![0]?.name
                         }`}
                         className="top"
-                        src={`/productimages/${product.images[0].watermarked}`}
+                        src={`https://pixelperfectartshop.com/productimages/${product.images[0].watermarked.replace(
+                          '.jpg',
+                          '-200.jpg'
+                        )}`}
                         style={{
                           opacity: `${hover === index ? '0' : '1'}`,
                         }}
@@ -125,16 +131,6 @@ export default function ProductGrid({ productsData, title }: productGridTypes) {
           }
         })}
       </Grid>
-      {/* <Pagination
-        align="center"
-        boundaries={1}
-        mt={48}
-        position="center"
-        total={Math.ceil(productsData?.products?.length / limit)}
-        onChange={(page) => setPage(page)}
-        aria-label="product pagination controls"
-      /> */}
-
       <Pagination.Root
         aria-label="product pagination controls"
         boundaries={1}

@@ -17,7 +17,6 @@ import { initDirectusCms } from '~/models/directus/directus.server'
 import { GetProductQuery } from '~/models/directus/sdk'
 import styles from '~/styles/productStyles.css'
 import { cache } from '~/utils/db.server'
-import { EnvContext } from '~/context/env'
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: styles }]
@@ -53,7 +52,6 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 export default function Products() {
   const { product } = useLoaderData<LoaderData>()
   const { cart, addToCart } = useContext(CartContext)
-  const { isProd } = useContext(EnvContext)
   const [hover, setHover] = useState<string>('watermarked')
   const memoProductData = useMemo(() => {
     if (product) {
@@ -81,9 +79,9 @@ export default function Products() {
               >
                 <CrossFade contentKey={hover}>
                   <img
-                    src={`/productimages/${memoProductData?.products![0]?.images![0]?.[
+                    src={`https://pixelperfectartshop.com/productimages/${memoProductData?.products![0]?.images![0]?.[
                       hover
-                    ].replace(isProd ? `'.jpg', '-500.jpg'` : `'', ''`)}`}
+                    ].replace('.jpg', '-500.jpg')}`}
                     key={hover}
                     alt={`${
                       memoProductData?.products![0]?.translations![0]?.name
@@ -128,9 +126,9 @@ export default function Products() {
                               ?.name
                           } - ${imageKey}`}
                           className="image-tiles"
-                          src={`/productimages/${memoProductData?.products![0]?.images![0]?.[
+                          src={`https://pixelperfectartshop.com/productimages/${memoProductData?.products![0]?.images![0]?.[
                             imageKey
-                          ].replace(isProd ? `'.jpg', '-200.jpg'` : `'', ''`)}`}
+                          ].replace('.jpg', '-200.jpg')}`}
                           style={{
                             transition: 'all .5s ease',
                             borderRadius: '6px',
