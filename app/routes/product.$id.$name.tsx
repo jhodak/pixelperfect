@@ -67,19 +67,49 @@ export default function Products() {
           {product?.products![0]?.translations![0]?.name}
         </Title>
         <Grid>
-          <Grid.Col md={9} sm={12}>
-            <Grid>
-              <Grid.Col md={3} orderMd={1} orderSm={2} sm={12}>
+          <Grid.Col lg={9} md={12} sm={12}>
+            <Grid grow>
+              <Grid.Col
+                lg={8}
+                md={6}
+                orderMd={2}
+                orderSm={1}
+                sm={12}
+                style={{ maxHeight: '500px' }}
+              >
+                <CrossFade contentKey={hover}>
+                  <img
+                    key={hover}
+                    alt={`${
+                      memoProductData?.products![0]?.translations![0]?.name
+                    } - product display area`}
+                    className="image-tiles"
+                    src={`/productimages/${
+                      memoProductData?.products![0]?.images![0]?.[hover]
+                    }`}
+                    style={{ maxHeight: '500px', borderRadius: '8px' }}
+                  />
+                </CrossFade>
+              </Grid.Col>
+
+              <Grid.Col
+                lg={4}
+                md={3}
+                orderMd={1}
+                orderXs={2}
+                xs={12}
+                className="imagePreviews"
+              >
                 {Object.keys(memoProductData?.products![0]?.images![0])
                   .reverse()
                   .map((imageKey, index) => {
                     return (
                       <Card
+                        className="imagePreviewCard"
                         key={imageKey}
                         mb={16}
                         style={{
                           margin: '0 auto 16px',
-                          width: '132px',
                           alignContent: 'center',
                           justifyContent: 'center',
                           display: 'flex',
@@ -103,7 +133,6 @@ export default function Products() {
                           }`}
                           style={{
                             transition: 'all .5s ease',
-                            maxWidth: '100px',
                             borderRadius: '6px',
                             alignSelf: 'center',
                             justifySelf: 'center',
@@ -115,45 +144,22 @@ export default function Products() {
                     )
                   })}
               </Grid.Col>
-
-              <Grid.Col
-                md={9}
-                orderMd={2}
-                orderSm={1}
-                sm={12}
-                style={{ maxHeight: '500px' }}
-              >
-                <CrossFade contentKey={hover}>
-                  <img
-                    key={hover}
-                    alt={`${
-                      memoProductData?.products![0]?.translations![0]?.name
-                    } - product display area`}
-                    className="image-tiles"
-                    src={`/productimages/${
-                      memoProductData?.products![0]?.images![0]?.[hover]
-                    }`}
-                    style={{ maxHeight: '500px', borderRadius: '8px' }}
-                  />
-                </CrossFade>
-              </Grid.Col>
             </Grid>
           </Grid.Col>
-          <Grid.Col md={3} sm={12}>
+          <Grid.Col
+            lg={3}
+            md={12}
+            sm={12}
+            xs={12}
+            className="productDescription"
+          >
             <Text component="p" mt={0} size={20} style={{ fontWeight: 'bold' }}>
               {`$ ${memoProductData?.products![0]?.price}`}
             </Text>
             <Text component="p">Short description goes here</Text>
             <Text component="p">
-              Suggested frame sizes: <br />
-              <ul>
-                <li>5" x 7"</li>
-                <li>8" x 10"</li>
-                <li>11" x 14"</li>
-                <li>16" x 20"</li>
-                <li>20" x 30"</li>
-                <li>22" x 32"</li>
-              </ul>
+              Suggested frame sizes: 5" x 7", 8" x 10", 11" x 14", 16" x 20",
+              20" x 30", 22" x 32"
             </Text>
             <Button
               fullWidth

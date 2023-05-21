@@ -1,3 +1,33 @@
 .cross-fade-container > div {
   margin: 0 auto;
 }
+.imagePreviewCard {
+  width: 132px;
+}
+
+.image-tiles {
+  max-width: calc(100vw - 32px);
+}
+
+@media screen and (max-width: 1183px) {
+  .productDescription {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .imagePreviews {
+    display: flex;
+    flex-direction: row;
+    margin-top: 48px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .imagePreviewCard {
+    width: calc(32%);
+  }
+  .imagePreviewCard img {
+    width: 100%;
+  }
+}
