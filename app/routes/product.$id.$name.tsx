@@ -61,7 +61,7 @@ export default function Products() {
   }, [product])
 
   return (
-    <div>
+    <div className="product-page">
       <Container size={1280}>
         <Title align="center" mb={24} order={2}>
           {product?.products![0]?.translations![0]?.name}
@@ -78,17 +78,26 @@ export default function Products() {
                 style={{ maxHeight: '500px' }}
               >
                 <CrossFade contentKey={hover}>
-                  <img
-                    key={hover}
-                    alt={`${
-                      memoProductData?.products![0]?.translations![0]?.name
-                    } - product display area`}
-                    className="image-area"
-                    src={`/productimages/${
-                      memoProductData?.products![0]?.images![0]?.[hover]
-                    }`}
-                    style={{ maxHeight: '500px', borderRadius: '8px' }}
-                  />
+                  <picture>
+                    <img
+                      srcSet={`/productimages/${memoProductData?.products![0]?.images![0]?.[
+                        hover
+                      ].replace('.jpg', '')}-500.jpg 500w, /productimages/${
+                        memoProductData?.products![0]?.images![0]?.[hover]
+                      } 896w`}
+                      sizes="(max-width: 768px) 500px,
+                    1200px"
+                      key={hover}
+                      alt={`${
+                        memoProductData?.products![0]?.translations![0]?.name
+                      } - product display area`}
+                      className="image-area"
+                      src={`/productimages/${
+                        memoProductData?.products![0]?.images![0]?.[hover]
+                      }`}
+                      style={{ maxHeight: '500px', borderRadius: '8px' }}
+                    />
+                  </picture>
                 </CrossFade>
               </Grid.Col>
 
@@ -120,26 +129,38 @@ export default function Products() {
                         }}
                         onClick={() => setHover(imageKey)}
                       >
-                        <img
-                          alt={`${
-                            memoProductData?.products![0]?.translations![0]
-                              ?.name
-                          } - ${imageKey}`}
-                          className="image-tiles"
-                          src={`/productimages/${
-                            memoProductData?.products![0]?.images![0]?.[
+                        <picture>
+                          <img
+                            srcSet={`/productimages/${memoProductData?.products![0]?.images![0]?.[
                               imageKey
-                            ]
-                          }`}
-                          style={{
-                            transition: 'all .5s ease',
-                            borderRadius: '6px',
-                            alignSelf: 'center',
-                            justifySelf: 'center',
-                            margin: '0 auto',
-                            opacity: hover === imageKey ? '1' : '.6',
-                          }}
-                        />
+                            ].replace(
+                              '.jpg',
+                              ''
+                            )}-200.jpg 200w, /productimages/${
+                              memoProductData?.products![0]?.images![0]?.[
+                                imageKey
+                              ]
+                            }`}
+                            alt={`${
+                              memoProductData?.products![0]?.translations![0]
+                                ?.name
+                            } - ${imageKey}`}
+                            className="image-tiles"
+                            src={`/productimages/${
+                              memoProductData?.products![0]?.images![0]?.[
+                                imageKey
+                              ]
+                            }`}
+                            style={{
+                              transition: 'all .5s ease',
+                              borderRadius: '6px',
+                              alignSelf: 'center',
+                              justifySelf: 'center',
+                              margin: '0 auto',
+                              opacity: hover === imageKey ? '1' : '.6',
+                            }}
+                          />
+                        </picture>
                       </Card>
                     )
                   })}
